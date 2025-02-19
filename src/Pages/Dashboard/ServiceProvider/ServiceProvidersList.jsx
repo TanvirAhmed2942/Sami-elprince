@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Table, Avatar, ConfigProvider, Input, Button } from "antd"; // Import Button
-import user from "../../../assets/gtdandy/user.png";
+import shop from "../../../assets/gtdandy/icons/shop.png";
 import {
   MoreOutlined,
   SearchOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 
-function UsersList() {
+function ServiceProvidersList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]); // Track selected rows
   const [userData, setUserData] = useState(data); // Store user data
@@ -20,7 +20,7 @@ function UsersList() {
   // Filter data based on search query
   const filteredData = userData.filter(
     (user) =>
-      user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.providersname.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.phone.includes(searchQuery)
   );
@@ -42,34 +42,35 @@ function UsersList() {
       theme={{
         components: {
           Table: {
-            rowSelectedBg: "#fef9eb",
-            headerBg: "#fef9eb",
+            rowSelectedBg: "#f5effb",
+            headerBg: "#f5effb",
           },
           Pagination: {
-            borderRadius: "50px",
-            itemActiveBg: "#ffc301",
-            itemHoverBg: "#ffc301",
-            itemBg: "#000",
+            borderRadius: "3px",
+            itemActiveBg: "#975cdb",
+            // itemHoverBg: "#ffffff",
+
+            itemBg: "#000000",
           },
         },
       }}
     >
       <div className="flex justify-between items-center px-10 py-5">
-        <h1 className="text-[20px] font-medium">User List</h1>
+        <h1 className="text-[20px] font-medium">Service Providers</h1>
         <div className="flex gap-3">
           <Input
             placeholder="Search by Name, Email or Phone"
             onChange={(e) => handleSearch(e.target.value)}
             prefix={<SearchOutlined />}
-            style={{ width: 200, height: 45 }}
+            style={{ width: 200, height: 40 }}
           />
           <ConfigProvider
             theme={{
               components: {
                 Button: {
-                  defaultHoverBg: "#ffc301",
-                  defaultHoverColor: "black",
-                  defaultHoverBorderColor: "none",
+                  defaultHoverBg: "#975cdb ",
+                  defaultHoverColor: "white",
+                  defaultHoverBorderColor: "#975cdb ",
                 },
               },
             }}
@@ -80,7 +81,7 @@ function UsersList() {
                 // danger
                 icon={<DeleteOutlined />}
                 onClick={handleDeleteSelected}
-                className="bg-gtdandy h-11"
+                className="bg-[#9d6fd6] text-white border-none h-10"
               >
                 Delete Selected
               </Button>
@@ -104,23 +105,25 @@ function UsersList() {
   );
 }
 
-export default UsersList;
+export default ServiceProvidersList;
 
-function UserAvatar({ user, username }) {
+function UserAvatar({ user, providersname }) {
   return (
     <div className="flex gap-2 items-center">
       <Avatar shape="square" size={40} src={user} />
-      <p>{username}</p>
+      <p>{providersname}</p>
     </div>
   );
 }
 
 const columns = [
   {
-    title: "User Name",
-    dataIndex: "username",
-    key: "username",
-    render: (username) => <UserAvatar username={username} user={user} />,
+    title: "Service Provider Name",
+    dataIndex: "providersname",
+    key: "providersname",
+    render: (providersname) => (
+      <UserAvatar providersname={providersname} user={shop} />
+    ),
   },
   {
     title: "Email",
@@ -133,9 +136,9 @@ const columns = [
     key: "phone",
   },
   {
-    title: "Total Gift Card Sent",
-    dataIndex: "giftsent",
-    key: "giftsent",
+    title: "Addess",
+    dataIndex: "address",
+    key: "address",
   },
   {
     key: "action",
@@ -146,86 +149,86 @@ const columns = [
 const data = [
   {
     key: 1,
-    username: "John Doe",
+    providersname: "John Doe",
     email: "test@gmail.com",
     phone: "+1234567890",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 2,
-    username: "Jane Smith",
+    providersname: "Jane Smith",
     email: "test2@gmail.com",
     phone: "+1234567891",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 3,
-    username: "Mark Johnson",
+    providersname: "Mark Johnson",
     email: "test3@ymail.com",
     phone: "+1234567892",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 4,
-    username: "Alice Brown",
+    providersname: "Alice Brown",
     email: "alice@gmail.com",
     phone: "+1234567893",
-    giftsent: 15,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 5,
-    username: "John Doe",
+    providersname: "John Doe",
     email: "test@gmail.com",
     phone: "+1234567890",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 6,
-    username: "Jane Smith",
+    providersname: "Jane Smith",
     email: "test2@gmail.com",
     phone: "+1234567891",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 7,
-    username: "Mark Johnson",
+    providersname: "Mark Johnson",
     email: "test3@ymail.com",
     phone: "+1234567892",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 8,
-    username: "Alice Brown",
+    providersname: "Alice Brown",
     email: "alice@gmail.com",
     phone: "+1234567893",
-    giftsent: 15,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 9,
-    username: "John Doe",
+    providersname: "John Doe",
     email: "test@gmail.com",
     phone: "+1234567890",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 10,
-    username: "Jane Smith",
+    providersname: "Jane Smith",
     email: "test2@gmail.com",
     phone: "+1234567891",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 11,
-    username: "Mark Johnson",
+    providersname: "Mark Johnson",
     email: "test3@ymail.com",
     phone: "+1234567892",
-    giftsent: 32,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
   {
     key: 12,
-    username: "Alice Brown",
+    providersname: "Alice Brown",
     email: "alice@gmail.com",
     phone: "+1234567893",
-    giftsent: 15,
+    address: "10 Warehouse Road, Apapa, Lagos",
   },
 ];

@@ -5,12 +5,12 @@ import {
   SearchOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import user from "../../../assets/gtdandy/user.png";
+import shop from "../../../assets/gtdandy/icons/shop.png";
 
 // UserAvatar Component
-const UserAvatar = ({ user }) => (
+const UserAvatar = ({ shop }) => (
   <div className="flex gap-2 items-center">
-    <Avatar shape="square" size={30} src={user} />
+    <Avatar shape="square" size={30} src={shop} />
     <p>John Doe</p>
   </div>
 );
@@ -20,7 +20,7 @@ const initialData = [
   {
     key: 1,
     date: "2021-09-01",
-    customername: user,
+    customername: shop,
     recipientname: "John Lennon",
     ocation: "Birthday",
     price: "$ 5",
@@ -29,7 +29,7 @@ const initialData = [
   {
     key: 2,
     date: "2021-10-15",
-    customername: user,
+    customername: shop,
     recipientname: "Paul McCartney",
     ocation: "Anniversary",
     price: "$ 10",

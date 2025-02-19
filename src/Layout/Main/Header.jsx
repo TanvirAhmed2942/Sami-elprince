@@ -6,7 +6,7 @@ import { UserOutlined, DownOutlined } from "@ant-design/icons";
 import { Badge, Space, Flex } from "antd";
 import { Avatar, Dropdown, ConfigProvider } from "antd";
 import { useUser } from "../../provider/User";
-import logo from "../../assets/gtdandy/logo.png";
+
 const Header = () => {
   const { user } = useUser();
   const src = user?.image?.startsWith("https")
@@ -35,27 +35,22 @@ const Header = () => {
     >
       <Flex
         align="center"
-        className="w-100% px-10 py-2 shadow-md overflow-auto bg-white"
+        justify="end"
+        className="w-100% h-[100px] px-10 py-2 shadow-sm overflow-auto bg-white"
       >
-        {/* Logo on the left with flex-grow */}
-        <div className="flex-1">
-          <img src={logo} width={200} alt="Logo" />
-        </div>
-
         {/* Right-side icons and user info */}
-        <Flex align="center" gap={20} justify="flex-end">
+        <Flex align="center" gap={30} justify="flex-end">
           {/* Notification Badge */}
-          <div className="w-8 h-8 bg-[#fff9fc] flex items-center justify-center p-5">
-            <Link to="/notification" className="h-fit mt-[10px]">
-              <Badge dot>
-                <FaRegBell color="#ffc301" size={24} />
-              </Badge>
+          <div className="w-8 h-8 bg-[#f5effb] flex items-center justify-center p-6 rounded-md relative">
+            <Link to="/notification" className="flex">
+              <FaRegBell color="#975CDB" size={30} className="relative" />
+              <Badge dot className="absolute top-[30%] left-[55%]" />
             </Link>
           </div>
 
           {/* User Profile */}
           <Link to="/setting" className="flex items-center gap-3">
-            <Avatar shape="square" size={50} className="rounded" src={src} />
+            <Avatar shape="square" size={60} className="rounded" src={src} />
           </Link>
 
           {/* Dropdown Menu */}
@@ -68,7 +63,7 @@ const Header = () => {
                 </Space>
               </a>
             </Dropdown>
-            <p>Admin</p>
+            <p>Super Admin</p>
           </Flex>
         </Flex>
       </Flex>

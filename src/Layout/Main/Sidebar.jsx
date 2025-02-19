@@ -19,6 +19,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { PiCirclesThreePlusLight } from "react-icons/pi";
 import { RiSettings5Line } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
+import serviceprovider from "../../assets/gtdandy/icons/serviceprovider.png";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -44,9 +45,9 @@ const Sidebar = () => {
     //   label: <Link to="/contents">Contnets</Link>,
     // },
     {
-      key: "/userlist",
-      icon: <AiOutlineUser size={24} />,
-      label: <Link to="/userlist">UserList</Link>,
+      key: "/serviceproviders",
+      icon: <img src={serviceprovider} size={24} />,
+      label: <Link to="/serviceproviders">Service Provider</Link>,
     },
     // {
     //   key: "/earnings",
@@ -237,9 +238,9 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-auto bg-white  rounded-lg  h-[full]">
+    <div className="w-auto bg-prince  rounded-lg  h-[full]">
       <Link to={"/"} className=" flex items-center justify-center py-4 ">
-        <div className="w-auto flex items-center justify-center border border-gtdandy px-10 py-3 gap-5 rounded-lg">
+        <div className="w-auto flex items-center justify-center bg-prince border border-gtdandy px-10 py-3 gap-5 rounded-lg">
           <PiChartPieSliceFill size={30} className=" rotate-90 text-gtdandy" />
           <p className="text-4xl font-semibold text-[18px] font-sans tracking-wider text-gtdandy">
             Dashboard
@@ -252,7 +253,7 @@ const Sidebar = () => {
         selectedKeys={[selectedKey]}
         openKeys={openKeys}
         onOpenChange={handleOpenChange}
-        style={{ borderRightColor: "transparent", background: "#ffffff " }}
+        style={{ borderRightColor: "transparent", background: "#ffffff  " }}
         items={menuItems}
         className="space-y-5 "
       />

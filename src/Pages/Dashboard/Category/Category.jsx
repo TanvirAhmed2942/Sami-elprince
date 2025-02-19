@@ -17,7 +17,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import ButtonEDU from "../../../components/common/ButtonEDU";
-import gift from "../../../assets/gtdandy/gift.png";
+import shop from "../../../assets/gtdandy/icons/shop.png";
 import { FiEdit2 } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
@@ -28,25 +28,25 @@ function Category() {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [editingKey, setEditingKey] = useState(null);
   const [tableData, setTableData] = useState([
-    { key: "1", name: "John Brown", serial: 1, sliderimg: gift },
-    { key: "2", name: "Jim Green", serial: 2, sliderimg: gift },
-    { key: "3", name: "Joe Black", serial: 3, sliderimg: gift },
+    { key: "1", name: "John Brown", serial: 1, sliderimg: shop },
+    { key: "2", name: "Jim Green", serial: 2, sliderimg: shop },
+    { key: "3", name: "Joe Black", serial: 3, sliderimg: shop },
     {
       key: "4",
       serial: 4,
-      sliderimg: gift,
+      sliderimg: shop,
       name: "Mountain Escape",
     },
     {
       key: "5",
       serial: 5,
-      sliderimg: gift,
+      sliderimg: shop,
       name: "Sunset Glow",
     },
     {
       key: "6",
       serial: 6,
-      sliderimg: gift,
+      sliderimg: shop,
       name: "City Lights",
     },
   ]);

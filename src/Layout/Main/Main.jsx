@@ -4,25 +4,21 @@ import Header from "./Header";
 import { Outlet } from "react-router-dom";
 import { Col, Flex, Row } from "antd";
 
-import { Grid } from "antd";
 const Main = () => {
   return (
-    <div className=" h-[100vh] bg-[#f8f8f8]">
-      <Flex vertical gap={20}>
-        <Row>
-          <Col span={24} className="z-10">
-            <Header />
-          </Col>
-        </Row>
-        <Row>
-          <Col span={20} push={4} className="h-[100%] ">
-            <Outlet />
-          </Col>
-          <Col span={4} pull={20} className="h-[836px] bg-white rounded-md ">
-            <Sidebar />
-          </Col>
-        </Row>
-      </Flex>
+    <div className="h-[100vh] bg-[#f8f8f8] relative">
+      {/* Sidebar */}
+      <div className="fixed left-0 top-0 w-[280px] h-full bg-white shadow-md z-10">
+        <Sidebar />
+      </div>
+
+      {/* Main Content */}
+      <div className="ml-[250px]">
+        <Header />
+        <div className="p-4">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 };

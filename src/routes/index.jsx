@@ -14,7 +14,7 @@ import Notifications from "../Pages/Dashboard/Notifications";
 import AdminProfile from "../Pages/Dashboard/AdminProfile/AdminProfile";
 
 import TermsAndCondition from "../Pages/Dashboard/TermsAndCondition/TermsAndCondition";
-import UsersList from "../Pages/Dashboard/UsersList/UsersList.jsx";
+import ServiceProvidersList from "../Pages/Dashboard/ServiceProvider/ServiceProvidersList.jsx";
 import Transaction from "../Pages/Dashboard/Transaction/Transaction.jsx";
 import Setting from "../Pages/Dashboard/Setting/Setting.jsx";
 import FaqCollapse from "../Pages/Dashboard/FAQ/FaqCollapse.jsx";
@@ -34,8 +34,8 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/userlist",
-        element: <UsersList />,
+        path: "/serviceproviders",
+        element: <ServiceProvidersList />,
       },
 
       {
