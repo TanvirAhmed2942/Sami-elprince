@@ -20,7 +20,8 @@ import Setting from "../Pages/Dashboard/Setting/Setting.jsx";
 import FaqCollapse from "../Pages/Dashboard/FAQ/FaqCollapse.jsx";
 import Contact from "../Pages/Dashboard/Contact/Contact.jsx";
 import Slider from "../Pages/Dashboard/Slider/Slider.jsx";
-import Category from "../Pages/Dashboard/Category/Category.jsx";
+import Customer from "../Pages/Dashboard/Customer/Customer.jsx";
+import PushNotification from "../Pages/Dashboard/PushNotification/PushNotification.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,12 +45,16 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/category",
-        element: <Category />,
+        path: "/customer",
+        element: <Customer />,
       },
       {
         path: "/slider",
         element: <Slider />,
+      },
+      {
+        path: "/pushnotification",
+        element: <PushNotification />,
       },
 
       {

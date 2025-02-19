@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Table, Avatar, ConfigProvider, Input, Button } from "antd";
-import {
-  MoreOutlined,
-  SearchOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { Table, Avatar, ConfigProvider, Input, Button, DatePicker } from "antd";
+import { SearchOutlined, DeleteOutlined } from "@ant-design/icons";
 import shop from "../../../assets/gtdandy/icons/shop.png";
+import { CSVLink, CSVDownload } from "react-csv";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { IoEye } from "react-icons/io5";
+import { PiFileCsvDuotone } from "react-icons/pi";
 
 // UserAvatar Component
 const UserAvatar = ({ shop }) => (
   <div className="flex gap-2 items-center">
-    <Avatar shape="square" size={30} src={shop} />
+    <Avatar shape="circle" size={30} src={shop} />
     <p>John Doe</p>
   </div>
 );
@@ -21,19 +21,37 @@ const initialData = [
     key: 1,
     date: "2021-09-01",
     customername: shop,
-    recipientname: "John Lennon",
-    ocation: "Birthday",
-    price: "$ 5",
+    name: "John Lennon",
+    orderid: "#1214454",
+    ammount: 5,
     status: "Sent",
   },
   {
     key: 2,
     date: "2021-10-15",
     customername: shop,
-    recipientname: "Paul McCartney",
-    ocation: "Anniversary",
-    price: "$ 10",
+    name: "Paul McCartney",
+    orderid: "#121idj54",
+    ammount: 10,
     status: "pending",
+  },
+  {
+    key: 3,
+    date: "2021-10-15",
+    customername: shop,
+    name: "George Harrison",
+    orderid: "#1256789",
+    ammount: 15,
+    status: "pending",
+  },
+  {
+    key: 4,
+    date: "2021-11-20",
+    customername: shop,
+    name: "Ringo Starr",
+    orderid: "#1239874",
+    ammount: 20,
+    status: "Sent",
   },
 ];
 
@@ -48,11 +66,7 @@ function Transaction() {
   // Filter data based on search query
   const filteredData = data.filter(
     (transaction) =>
-      transaction.recipientname
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase()) ||
-      transaction.ocation.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      transaction.price.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      transaction.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       transaction.status.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -64,6 +78,7 @@ function Transaction() {
 
   // Handle delete function
   const handleDelete = () => {
+    // Delete only the selected rows
     setData(data.filter((item) => !selectedRowKeys.includes(item.key)));
     setSelectedRowKeys([]);
   };
@@ -77,25 +92,22 @@ function Transaction() {
       render: (date) => <p>{new Date(date).toLocaleDateString()}</p>,
     },
     {
-      title: "Customer Name",
-      dataIndex: "customername",
-      key: "customername",
-      render: (customername) => <UserAvatar user={customername} />,
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (name) => <UserAvatar user={name} />,
     },
     {
-      title: "Recipient Name",
-      dataIndex: "recipientname",
-      key: "recipientname",
+      title: "Order ID",
+      dataIndex: "orderid",
+      key: "orderid",
     },
     {
-      title: "Ocation",
-      dataIndex: "ocation",
-      key: "ocation",
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
+      title: "Ammount",
+      dataIndex: "ammount",
+      key: "ammount",
+      // defaultSortOrder: "descend",
+      sorter: (a, b) => a.ammount - b.ammount,
     },
     {
       title: "Status",
@@ -116,8 +128,23 @@ function Transaction() {
       ),
     },
     {
+      title: "Actions",
       key: "action",
-      render: () => <MoreOutlined className="cursor-pointer w-10 h-10" />,
+      render: (_, record) => (
+        <div className="flex gap-4">
+          <IoEye
+            style={{ fontSize: 24 }}
+            className="text-black hover:text-blue-500 cursor-pointer"
+          />
+          <RiDeleteBin6Line
+            style={{ fontSize: 24 }}
+            className="text-black hover:text-red-500 cursor-pointer"
+            onClick={() =>
+              setData(data.filter((item) => item.key !== record.key))
+            }
+          />
+        </div>
+      ),
     },
   ];
 
@@ -125,22 +152,22 @@ function Transaction() {
     <ConfigProvider
       theme={{
         components: {
-          Table: { rowSelectedBg: "#fef9eb", headerBg: "#fef9eb" },
+          Table: { rowSelectedBg: "#f5effb", headerBg: "#f5effb" },
           Pagination: {
-            itemActiveBg: "#FFC301",
-            itemBg: "black",
-            borderRadius: "50px",
-            colorText: "white",
+            borderRadius: "3px",
+            itemActiveBg: "#975cdb",
+            // itemHoverBg: "#ffffff",
+            itemBg: "#000000",
           },
         },
       }}
     >
-      {/* Pass selectedRowKeys and handleDelete to Head */}
       <Head
         onSearch={handleSearch}
         pagename="Transactions"
         selectedRowKeys={selectedRowKeys}
         handleDelete={handleDelete}
+        filteredData={filteredData}
       />
 
       <Table
@@ -153,6 +180,9 @@ function Transaction() {
           defaultPageSize: 5,
           position: ["bottomCenter"],
         }}
+        showSorterTooltip={{
+          target: "sorter-icon",
+        }}
       />
     </ConfigProvider>
   );
@@ -161,7 +191,13 @@ function Transaction() {
 export default Transaction;
 
 // Head Component (for Search Bar and Delete Button)
-function Head({ onSearch, pagename, selectedRowKeys, handleDelete }) {
+function Head({
+  onSearch,
+  pagename,
+  selectedRowKeys,
+  handleDelete,
+  filteredData,
+}) {
   return (
     <ConfigProvider
       theme={{
@@ -176,23 +212,49 @@ function Head({ onSearch, pagename, selectedRowKeys, handleDelete }) {
     >
       <div className="flex justify-between items-center px-10 py-5">
         <h1 className="text-[20px] font-medium">{pagename}</h1>
+
         <div className="flex gap-3 items-center">
           <Input
             placeholder="Search by Recipient, Ocation, Price, or Status"
             onChange={(e) => onSearch(e.target.value)}
             prefix={<SearchOutlined />}
-            style={{ width: 200, height: 45 }}
+            style={{ width: 200, height: 40 }}
           />
-          {/* Conditionally show delete button next to search input */}
-          {selectedRowKeys.length > 0 && (
-            <Button
-              onClick={handleDelete}
-              icon={<DeleteOutlined />}
-              className="bg-gtdandy text-white px-4 h-11 rounded"
-            >
-              Delete Selected
+          <DatePicker picker="month" className="h-10" />
+          <ConfigProvider
+            theme={{
+              components: {
+                Button: {
+                  defaultHoverBg: "#975cdb ",
+                  defaultHoverColor: "white",
+                  defaultHoverBorderColor: "#975cdb ",
+                },
+              },
+            }}
+          >
+            <Button className="h-10  bg-prince text-white border-none">
+              <CSVLink
+                data={initialData}
+                className="flex items-center justify-center gap-2"
+              >
+                Export
+                <PiFileCsvDuotone size={20} />
+              </CSVLink>
             </Button>
-          )}
+            {/* Show delete button only if more than one row is selected */}
+
+            {selectedRowKeys.length > 1 && (
+              <Button
+                onClick={handleDelete}
+                icon={<DeleteOutlined />}
+                className="bg-[#9d6fd6] text-white border-none h-10"
+              >
+                {selectedRowKeys.length === filteredData.length
+                  ? "Delete All"
+                  : "Delete Selected"}
+              </Button>
+            )}
+          </ConfigProvider>
         </div>
       </div>
     </ConfigProvider>

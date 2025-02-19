@@ -24,9 +24,9 @@ function Setting() {
       theme={{
         components: {
           Tabs: {
-            inkBarColor: "#ffc301",
+            inkBarColor: "#975cdb",
             itemHoverColor: "black",
-            itemSelectedColor: "#ffc301",
+            itemSelectedColor: "#975cdb",
             titleFontSize: "18px",
             horizontalMargin: "0 0 30px 0",
           },

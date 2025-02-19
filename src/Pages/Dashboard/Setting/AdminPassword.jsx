@@ -38,7 +38,7 @@ function AdminPassword() {
       theme={{
         components: {
           Card: {
-            headerBg: "#FFC301",
+            headerBg: "#975cdb",
             headerHeight: "30px",
             headerPadding: "5px",
           },
@@ -49,7 +49,7 @@ function AdminPassword() {
         title="Change Password"
         bordered={false}
         style={{ width: 850, height: 470 }}
-        className="w-full h-full flex flex-col shadow-[0px_10px_100px_3px_rgba(0,_0,_0,_0.1)]"
+        className="w-full h-full flex flex-col text-white shadow-[0px_10px_100px_3px_rgba(0,_0,_0,_0.1)]"
       >
         <ConfigProvider
           theme={{

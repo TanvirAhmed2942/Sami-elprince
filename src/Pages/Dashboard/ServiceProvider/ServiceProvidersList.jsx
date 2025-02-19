@@ -49,8 +49,12 @@ function ServiceProvidersList() {
             borderRadius: "3px",
             itemActiveBg: "#975cdb",
             // itemHoverBg: "#ffffff",
-
             itemBg: "#000000",
+          },
+          Button: {
+            defaultHoverBg: "#975cdb ",
+            defaultHoverColor: "white",
+            defaultHoverBorderColor: "#975cdb ",
           },
         },
       }}
@@ -64,29 +68,17 @@ function ServiceProvidersList() {
             prefix={<SearchOutlined />}
             style={{ width: 200, height: 40 }}
           />
-          <ConfigProvider
-            theme={{
-              components: {
-                Button: {
-                  defaultHoverBg: "#975cdb ",
-                  defaultHoverColor: "white",
-                  defaultHoverBorderColor: "#975cdb ",
-                },
-              },
-            }}
-          >
-            {selectedRowKeys.length > 0 && (
-              <Button
-                // type="primary"
-                // danger
-                icon={<DeleteOutlined />}
-                onClick={handleDeleteSelected}
-                className="bg-[#9d6fd6] text-white border-none h-10"
-              >
-                Delete Selected
-              </Button>
-            )}
-          </ConfigProvider>
+          {selectedRowKeys.length > 0 && (
+            <Button
+              // type="primary"
+              // danger
+              icon={<DeleteOutlined />}
+              onClick={handleDeleteSelected}
+              className="bg-[#9d6fd6] text-white border-none h-10"
+            >
+              Delete Selected
+            </Button>
+          )}
         </div>
       </div>
 

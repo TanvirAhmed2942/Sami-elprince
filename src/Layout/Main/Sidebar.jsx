@@ -5,7 +5,7 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HiUserGroup } from "react-icons/hi2";
 import { HiUsers } from "react-icons/hi2";
-import { TbDatabaseDollar } from "react-icons/tb";
+import { TbBellBolt, TbDashboard, TbDatabaseDollar } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 import { BiSolidCategory } from "react-icons/bi";
 import { PiChartPieSliceFill, PiCopyBold } from "react-icons/pi";
@@ -19,7 +19,7 @@ import { AiOutlineUser } from "react-icons/ai";
 import { PiCirclesThreePlusLight } from "react-icons/pi";
 import { RiSettings5Line } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
-import serviceprovider from "../../assets/gtdandy/icons/serviceprovider.png";
+import { FaHandsHelping } from "react-icons/fa";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -46,7 +46,7 @@ const Sidebar = () => {
     // },
     {
       key: "/serviceproviders",
-      icon: <img src={serviceprovider} size={24} />,
+      icon: <FaHandsHelping size={24} />,
       label: <Link to="/serviceproviders">Service Provider</Link>,
     },
     // {
@@ -90,21 +90,21 @@ const Sidebar = () => {
             icon: <MdOutlineAdminPanelSettings size={24} />,
             label: <Link to="/admin">Make Admin</Link>
         }, */
-    // {
-    //     key: "/category",
-    //     icon: <MdOutlineCategory size={24} />,
-    //     label: <Link to="/category" >Category</Link>
-    // },
+    {
+      key: "/customer",
+      icon: <MdOutlineCategory size={24} />,
+      label: <Link to="/customer">Customer</Link>,
+    },
     // {
     //     key: "/sub-category",
     //     icon: <BiSolidCategory size={24} />,
     //     label: <Link to="/sub-category" >Sub Category</Link>
     // },
-    // {
-    //     key: "/events",
-    //     icon: <MdOutlineCategory size={24} />,
-    //     label: <Link to="/events" >Events</Link>
-    // },
+    {
+      key: "/pushnotification",
+      icon: <TbBellBolt size={24} />,
+      label: <Link to="/pushnotification">PushNotification</Link>,
+    },
 
     {
       key: "subMenuSetting",
@@ -130,7 +130,7 @@ const Sidebar = () => {
         {
           key: "/slider",
           label: (
-            <Link to="/slider" className="text-white hover:text-white">
+            <Link to="/slider" className="text-white">
               Slider
             </Link>
           ),
@@ -196,9 +196,9 @@ const Sidebar = () => {
     },
     {
       key: "/logout",
-      icon: <FiLogOut size={23} />,
+      icon: <FiLogOut size={23} color="white" />,
       label: (
-        <p onClick={handleLogout} className="text-black hover:text-white">
+        <p onClick={handleLogout} className="text-white hover:text-white">
           Logout
         </p>
       ),
@@ -238,11 +238,14 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-auto bg-prince  rounded-lg  h-[full]">
-      <Link to={"/"} className=" flex items-center justify-center py-4 ">
+    <div className="w-auto bg-prince  mt-20  h-[full]">
+      <Link
+        to={"/"}
+        className=" flex items-center justify-center py-4 text-white"
+      >
         <div className="w-auto flex items-center justify-center bg-prince border border-gtdandy px-10 py-3 gap-5 rounded-lg">
-          <PiChartPieSliceFill size={30} className=" rotate-90 text-gtdandy" />
-          <p className="text-4xl font-semibold text-[18px] font-sans tracking-wider text-gtdandy">
+          <TbDashboard size={30} className=" text-white" />
+          <p className="text-4xl font-semibold text-[18px] font-sans tracking-wider text-white">
             Dashboard
           </p>
         </div>
@@ -253,9 +256,9 @@ const Sidebar = () => {
         selectedKeys={[selectedKey]}
         openKeys={openKeys}
         onOpenChange={handleOpenChange}
-        style={{ borderRightColor: "transparent", background: "#ffffff  " }}
+        style={{ borderRightColor: "transparent", background: "#975cdb" }}
         items={menuItems}
-        className="space-y-5 "
+        className="space-y-5 text-white mt-10"
       />
     </div>
   );

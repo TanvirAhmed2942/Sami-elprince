@@ -60,12 +60,17 @@ p {
 
 /* ant design menu option */
 .ant-menu-item:hover {
-  background-color: #ffc301 !important;
+  /* background-color: red !important; */
+  background: linear-gradient(90deg, #440093 0%, #975cdb 100%);
   color: #ffffff !important;
 }
 
 .ant-menu-item .ant-menu-item-selected {
-  background-color: #ffc301 !important;
+  background: linear-gradient(90deg, #440093 0%, #975cdb 100%) !important;
+  color: #ffffff !important;
+}
+.ant-menu-item .ant-menu-item-active .ant-menu-item-selected {
+  background: linear-gradient(90deg, #440093 0%, #975cdb 100%) !important;
   color: #ffffff !important;
 }
 .ant-menu-light .ant-menu-item-selected a {
@@ -74,9 +79,9 @@ p {
 .ant-menu-light .ant-menu-item a:hover {
   color: white !important;
 }
-.ant-menu-submenu .ant-menu-submenu-inline .ant-menu-submenu-open {
+/* .ant-menu-submenu .ant-menu-submenu-inline .ant-menu-submenu-open {
   background-color: #ffc301;
-}
+} */
 
 .ant-menu-item {
   /* background-color: #ffffff !important; */
@@ -84,16 +89,21 @@ p {
 }
 
 .ant-menu-item-selected {
-  background-color: #ffc301 !important;
+  background: linear-gradient(90deg, #440093 0%, #975cdb 100%) !important;
   color: white !important;
 }
 
 .ant-menu-title-content {
-  color: black !important;
+  color: white !important;
 }
 
 .ant-menu .ant-menu-item .ant-menu-item-icon + span {
   transition: none !important;
+}
+
+.ant-menu-item-icon {
+  font-size: xx-large;
+  font-weight: bolder;
 }
 
 .ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title {
@@ -118,15 +128,15 @@ p {
 }
 
 .ant-menu-item-icon {
-  color: #ffc301;
+  color: white !important;
 }
 
 .ant-menu .ant-menu-submenu-title .ant-menu-item-icon {
-  color: black !important;
+  color: white !important;
 }
 
 .ant-menu .ant-menu-submenu-title {
-  color: black !important;
+  color: white !important;
 }
 
 .ant-collapse > .ant-collapse-item {
@@ -154,6 +164,9 @@ p {
 .ant-card .ant-card-head {
   border-bottom: none;
   min-height: 120px;
+}
+.ant-card-head-title {
+  color: white !important;
 }
 :where(.css-dev-only-do-not-override-1qeagc6).ant-card:not(.ant-card-bordered) {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;

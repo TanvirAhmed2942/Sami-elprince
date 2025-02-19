@@ -333,7 +333,7 @@ const TableHead = ({ searchText, handleSearch, onAdd }) => {
         onChange={handleSearch}
         className="w-1/3"
       />
-      <ButtonEDU actionType="add" icon={<FaPlus />} onClick={onAdd}>
+      <ButtonEDU actionType="save" icon={<FaPlus />} onClick={onAdd}>
         Add Admin
       </ButtonEDU>
     </div>

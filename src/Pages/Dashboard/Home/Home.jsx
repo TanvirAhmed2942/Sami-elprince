@@ -18,14 +18,14 @@ const stats = [
 
 const Card = ({ item }) => {
   return (
-    <div className="flex items-center w-80 h-32 rounded-xl bg-white gap-5">
+    <div className="flex w-full items-center justify-center h-32 rounded-xl bg-white  gap-10">
       <div
-        className={`${item.bg} w-20 h-20 flex items-center justify-center rounded-full ml-8`}
+        className={`${item.bg} w-20 h-20 flex items-center justify-center rounded-full `}
       >
         <img src={item.icon} width={32} alt={item.label} />
       </div>
       <div className="flex flex-col">
-        <h1 className="text-[32px] font-semibold">{item.value}</h1>
+        <h1 className="text-[32px] font-semibold mb-1">{item.value}</h1>
         <p className="text-[18px] text-paragraph font-medium">{item.label}</p>
       </div>
     </div>
@@ -67,7 +67,7 @@ const Home = () => {
           }
         />
 
-        <div className="flex items-center sm:flex-wrap gap-2 w-full">
+        <div className="flex items-center justify-between  gap-10 w-full">
           {stats.map((item, index) => (
             <Card key={index} item={item} />
           ))}
