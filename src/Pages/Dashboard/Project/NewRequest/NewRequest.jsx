@@ -1,16 +1,7 @@
 import React, { useState } from "react";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Popconfirm,
-  Table,
-  Typography,
-  Avatar,
-  Modal,
-} from "antd";
+import { Form, Input, Popconfirm, Table, Avatar, message } from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { TiTick } from "react-icons/ti";
+import { TiPlus, TiTick } from "react-icons/ti";
 import { BsFillEyeFill } from "react-icons/bs";
 import ViewModal from "./ViewModal";
 
@@ -34,7 +25,7 @@ const ActionButtons = ({ record, handleAccept, handleDelete, handleView }) => {
         onConfirm={() => handleDelete(record.key)}
       >
         <button className="text-red-400 hover:text-red-600">
-          <RiDeleteBin6Line size={20} />
+          <TiPlus size={25} className="rotate-45" />
         </button>
       </Popconfirm>
     </div>
@@ -48,29 +39,48 @@ const CustomerTable = ({ data, setData }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
 
+  // const handleAccept = (record) => {
+  //   alert(`Accepted request for ${record.customername}`);
+  // };
   const handleAccept = (record) => {
-    alert(`Accepted request for ${record.customername}`);
+    message.success(`Accepted request for ${record.customername}`);
+    setModalVisible(false); // Close modal after accepting
   };
 
-  const handleDelete = (key) =>
-    setData(data.filter((item) => item.key !== key));
+  const handleDelete = (key) => {
+    setData((prevData) => {
+      const updatedData = prevData.filter((item) => item.key !== key);
+      return updatedData;
+    });
+
+    message.success("Rejected successfully"); // Show success message
+    setModalVisible(false); // Close modal after deleting
+  };
 
   const handleDeleteSelected = () => {
     setData(data.filter((item) => !selectedRowKeys.includes(item.key)));
     setSelectedRowKeys([]); // Clear the selection after deletion
   };
 
+  const closeModal = () => {
+    setModalVisible(false);
+  };
   const handleView = (record) => {
     setSelectedRecord(record);
     setModalVisible(true);
   };
 
+  // const filteredData = data.filter((item) =>
+  //   [item.customername, item.email, item.phone, item.address].some((field) =>
+  //     field.toLowerCase().includes(searchText.toLowerCase())
+  //   )
+  // );
+
   const filteredData = data.filter((item) =>
-    [item.customername, item.email, item.phone, item.address].some((field) =>
+    [item.customername, item.service, item.address].some((field) =>
       field.toLowerCase().includes(searchText.toLowerCase())
     )
   );
-
   const columns = [
     {
       title: "Customer Name",
@@ -86,7 +96,7 @@ const CustomerTable = ({ data, setData }) => {
     { title: "Service", dataIndex: "service", width: "25%" },
     { title: "Address", dataIndex: "address", width: "25%" },
     {
-      title: "Action",
+      title: "Action (view/accept/reject)",
       dataIndex: "action",
       render: (_, record) => (
         <ActionButtons
@@ -143,8 +153,10 @@ const CustomerTable = ({ data, setData }) => {
       </div>
       <ViewModal
         visible={modalVisible}
-        onClose={() => setModalVisible(false)}
+        onClose={closeModal}
         record={selectedRecord}
+        handleAccept={handleAccept} // Ensure these functions exist
+        handleDelete={handleDelete}
       />
     </>
   );
@@ -156,7 +168,7 @@ const NewRequest = () => {
     customername: `Edward ${i}`,
     service: `Service ${i}`,
     address: `London Park no. ${i}`,
-    avatar: "",
+    avatar: "https://i.pravatar.cc/50?img=2",
   }));
   const [data, setData] = useState(originData);
 

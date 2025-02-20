@@ -97,7 +97,7 @@ const Sidebar = () => {
       label: <Link to="/customer">Customer</Link>,
     },
     {
-      key: "subMenuSetting",
+      key: "subMenuSetting1",
       icon: <FaDiagramProject size={24} />,
       label: "Project",
       children: [
