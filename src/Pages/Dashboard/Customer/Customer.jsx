@@ -1,155 +1,3 @@
-// import React, { useState } from "react";
-// import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
-
-// const originData = Array.from({ length: 100 }).map((_, i) => ({
-//   key: i.toString(),
-//   name: `Edward ${i}`,
-//   age: 32,
-//   address: `London Park no. ${i}`,
-// }));
-
-// const EditableCell = ({
-//   editing,
-//   dataIndex,
-//   title,
-//   inputType,
-//   children,
-//   ...restProps
-// }) => {
-//   const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
-//   return (
-//     <td {...restProps}>
-//       {editing ? (
-//         <Form.Item
-//           name={dataIndex}
-//           style={{ margin: 0 }}
-//           rules={[{ required: true, message: `Please Input ${title}!` }]}
-//         >
-//           {inputNode}
-//         </Form.Item>
-//       ) : (
-//         children
-//       )}
-//     </td>
-//   );
-// };
-
-// const Customer = () => {
-//   const [form] = Form.useForm();
-//   const [data, setData] = useState(originData);
-//   const [editingKey, setEditingKey] = useState("");
-//   const [selectedRowKeys, setSelectedRowKeys] = useState([]); // Track selected rows
-
-//   const isEditing = (record) => record.key === editingKey;
-
-//   const edit = (record) => {
-//     form.setFieldsValue({ name: "", age: "", address: "", ...record });
-//     setEditingKey(record.key);
-//   };
-
-//   const cancel = () => setEditingKey("");
-
-//   const save = async (key) => {
-//     try {
-//       const row = await form.validateFields();
-//       const newData = [...data];
-//       const index = newData.findIndex((item) => key === item.key);
-//       if (index > -1) {
-//         newData.splice(index, 1, { ...newData[index], ...row });
-//         setData(newData);
-//       } else {
-//         newData.push(row);
-//         setData(newData);
-//       }
-//       setEditingKey("");
-//     } catch (errInfo) {
-//       console.log("Validate Failed:", errInfo);
-//     }
-//   };
-
-//   const rowSelection = {
-//     selectedRowKeys,
-//     onChange: setSelectedRowKeys, // Update selected rows
-//   };
-
-//   const columns = [
-//     {
-//       title: "Name",
-//       dataIndex: "name",
-//       width: "25%",
-//       editable: true,
-//     },
-//     {
-//       title: "Age",
-//       dataIndex: "age",
-//       width: "15%",
-//       editable: true,
-//     },
-//     {
-//       title: "Address",
-//       dataIndex: "address",
-//       width: "40%",
-//       editable: true,
-//     },
-//     {
-//       title: "Operation",
-//       dataIndex: "operation",
-//       render: (_, record) => {
-//         const editable = isEditing(record);
-//         return editable ? (
-//           <span>
-//             <Typography.Link
-//               onClick={() => save(record.key)}
-//               style={{ marginRight: 8 }}
-//             >
-//               Save
-//             </Typography.Link>
-//             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-//               <a>Cancel</a>
-//             </Popconfirm>
-//           </span>
-//         ) : (
-//           <Typography.Link
-//             disabled={editingKey !== ""}
-//             onClick={() => edit(record)}
-//           >
-//             Edit
-//           </Typography.Link>
-//         );
-//       },
-//     },
-//   ];
-
-//   const mergedColumns = columns.map((col) => ({
-//     ...col,
-//     onCell: (record) =>
-//       col.editable
-//         ? {
-//             inputType: col.dataIndex === "age" ? "number" : "text",
-//             dataIndex: col.dataIndex,
-//             title: col.title,
-//             editing: isEditing(record),
-//           }
-//         : undefined,
-//   }));
-
-//   return (
-//     <Form form={form} component={false}>
-//       <Table
-//         rowSelection={rowSelection} // Add checkboxes
-//         components={{ body: { cell: EditableCell } }}
-//         bordered
-//         dataSource={data}
-//         columns={mergedColumns}
-//         rowClassName="editable-row"
-//         pagination={{ onChange: cancel }}
-//       />
-//     </Form>
-//   );
-// };
-
-// export default Customer;
-
 import React, { useState } from "react";
 import {
   Form,
@@ -159,13 +7,19 @@ import {
   Table,
   Typography,
   Button,
+  Avatar,
 } from "antd";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiEdit3 } from "react-icons/fi";
+import GetPageName from "../../../components/common/GetPageName";
 
-const originData = Array.from({ length: 10 }).map((_, i) => ({
+const originData = Array.from({ length: 20 }).map((_, i) => ({
   key: i.toString(),
-  name: `Edward ${i}`,
-  age: 32,
+  customername: `Edward ${i}`,
+  email: `edward${i}@mail.com`,
+  phone: `12345678${i}`,
   address: `London Park no. ${i}`,
+  avatar: "",
 }));
 
 const EditableCell = ({
@@ -197,13 +51,14 @@ const EditableCell = ({
 const Customer = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
+  const [searchText, setSearchText] = useState(""); // State for search input
   const [editingKey, setEditingKey] = useState("");
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]); // Track selected rows
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const isEditing = (record) => record.key === editingKey;
 
   const edit = (record) => {
-    form.setFieldsValue({ name: "", age: "", address: "", ...record });
+    form.setFieldsValue({ ...record });
     setEditingKey(record.key);
   };
 
@@ -213,12 +68,9 @@ const Customer = () => {
     try {
       const row = await form.validateFields();
       const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
+      const index = newData.findIndex((item) => item.key === key);
       if (index > -1) {
-        newData.splice(index, 1, { ...newData[index], ...row });
-        setData(newData);
-      } else {
-        newData.push(row);
+        newData[index] = { ...newData[index], ...row };
         setData(newData);
       }
       setEditingKey("");
@@ -228,32 +80,52 @@ const Customer = () => {
   };
 
   const handleDelete = (key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
+    setData(data.filter((item) => item.key !== key));
   };
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: setSelectedRowKeys, // Update selected rows
+    onChange: setSelectedRowKeys,
   };
+
+  // Function to filter table based on search text
+  const filteredData = data.filter(
+    (item) =>
+      item.customername.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchText.toLowerCase()) ||
+      item.phone.includes(searchText) ||
+      item.address.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
+      title: "Customer Name",
+      dataIndex: "customername",
+      width: "20%",
+      editable: true,
+      render: (text, record) => (
+        <div className="flex items-center gap-2">
+          <Avatar src={record.avatar} alt={text} shape="square" />
+          <span>{text}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
       width: "25%",
       editable: true,
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      width: "15%",
+      title: "Phone",
+      dataIndex: "phone",
+      width: "10%",
       editable: true,
     },
     {
       title: "Address",
       dataIndex: "address",
-      width: "40%",
+      width: "25%",
       editable: true,
     },
     {
@@ -274,20 +146,21 @@ const Customer = () => {
             </Popconfirm>
           </span>
         ) : (
-          <div className="flex gap-3">
-            <Typography.Link
+          <div className="flex items-center justify-start gap-4">
+            <button
               disabled={editingKey !== ""}
               onClick={() => edit(record)}
+              className="text-sky-500 hover:text-sky-600"
             >
-              Edit
-            </Typography.Link>
+              <FiEdit3 size={20} />
+            </button>
             <Popconfirm
               title="Are you sure to delete?"
               onConfirm={() => handleDelete(record.key)}
             >
-              <Button danger size="small">
-                Delete
-              </Button>
+              <button className="text-red-400 hover:text-red-600">
+                <RiDeleteBin6Line size={20} />
+              </button>
             </Popconfirm>
           </div>
         );
@@ -300,7 +173,7 @@ const Customer = () => {
     onCell: (record) =>
       col.editable
         ? {
-            inputType: col.dataIndex === "age" ? "number" : "text",
+            inputType: col.dataIndex === "phone" ? "number" : "text",
             dataIndex: col.dataIndex,
             title: col.title,
             editing: isEditing(record),
@@ -309,18 +182,116 @@ const Customer = () => {
   }));
 
   return (
-    <Form form={form} component={false}>
-      <Table
-        rowSelection={rowSelection} // Add checkboxes
-        components={{ body: { cell: EditableCell } }}
-        bordered
-        dataSource={data}
-        columns={mergedColumns}
-        rowClassName="editable-row"
-        pagination={{ onChange: cancel }}
-      />
-    </Form>
+    <>
+      <div className="flex justify-between items-center px-10 py-5">
+        <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
+        <Input
+          placeholder="Search by name, email, phone, or address"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          allowClear
+          style={{ width: 200, height: 40 }}
+        />
+      </div>
+
+      <div className=" px-10">
+        <Form form={form} component={false}>
+          <Table
+            rowSelection={rowSelection}
+            components={{ body: { cell: EditableCell } }}
+            bordered
+            dataSource={filteredData} // Apply filtering here
+            columns={mergedColumns}
+            rowClassName="editable-row"
+            pagination={{ onChange: cancel, defaultPageSize: 5 }}
+          />
+        </Form>
+      </div>
+    </>
   );
 };
 
 export default Customer;
+
+// const originData = [
+//   {
+//     key: "1",
+//     customername: "Alice Johnson",
+//     email: "alice.johnson@example.com",
+//     phone: "9876543210",
+//     address: "123 Maple Street, NY",
+//     avatar: "https://i.pravatar.cc/50?img=1",
+//   },
+//   {
+//     key: "2",
+//     customername: "Bob Smith",
+//     email: "bobsmith22@gmail.com",
+//     phone: "5556677889",
+//     address: "456 Oak Avenue, CA",
+//     avatar: "https://i.pravatar.cc/50?img=2",
+//   },
+//   {
+//     key: "3",
+//     customername: "Charlie Brown",
+//     email: "charlie.b@example.org",
+//     phone: "1112233445",
+//     address: "789 Pine Road, TX",
+//     avatar: "https://i.pravatar.cc/50?img=3",
+//   },
+//   {
+//     key: "4",
+//     customername: "David Williams",
+//     email: "david_w@example.net",
+//     phone: "9998887776",
+//     address: "101 Cedar Blvd, FL",
+//     avatar: "https://i.pravatar.cc/50?img=4",
+//   },
+//   {
+//     key: "5",
+//     customername: "Emma Davis",
+//     email: "emma_d@example.com",
+//     phone: "6665554443",
+//     address: "202 Birch Lane, NV",
+//     avatar: "https://i.pravatar.cc/50?img=5",
+//   },
+//   {
+//     key: "6",
+//     customername: "Franklin Carter",
+//     email: "frank.carter@company.com",
+//     phone: "3332221110",
+//     address: "303 Redwood St, WA",
+//     avatar: "https://i.pravatar.cc/50?img=6",
+//   },
+//   {
+//     key: "7",
+//     customername: "Grace Miller",
+//     email: "grace_m@example.io",
+//     phone: "4447779998",
+//     address: "404 Walnut Dr, OR",
+//     avatar: "https://i.pravatar.cc/50?img=7",
+//   },
+//   {
+//     key: "8",
+//     customername: "Henry White",
+//     email: "henryw@example.com",
+//     phone: "2223334445",
+//     address: "505 Elm Circle, CO",
+//     avatar: "https://i.pravatar.cc/50?img=8",
+//   },
+//   {
+//     key: "9",
+//     customername: "Ivy Scott",
+//     email: "ivy.scott@example.org",
+//     phone: "7778889996",
+//     address: "606 Spruce Ct, GA",
+//     avatar: "https://i.pravatar.cc/50?img=9",
+//   },
+//   {
+//     key: "10",
+//     customername: "Jack Anderson",
+//     email: "jack_anderson@example.net",
+//     phone: "1234567890",
+//     address: "707 Cedar Rd, IL",
+//     avatar: "https://i.pravatar.cc/50?img=10",
+//   },
+// ];

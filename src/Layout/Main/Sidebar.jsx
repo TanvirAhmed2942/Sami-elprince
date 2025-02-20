@@ -18,8 +18,9 @@ import { PiWallet } from "react-icons/pi";
 import { AiOutlineUser } from "react-icons/ai";
 import { PiCirclesThreePlusLight } from "react-icons/pi";
 import { RiSettings5Line } from "react-icons/ri";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiUsers } from "react-icons/fi";
 import { FaHandsHelping } from "react-icons/fa";
+import { FaDiagramProject } from "react-icons/fa6";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -92,8 +93,39 @@ const Sidebar = () => {
         }, */
     {
       key: "/customer",
-      icon: <MdOutlineCategory size={24} />,
+      icon: <FiUsers size={24} />,
       label: <Link to="/customer">Customer</Link>,
+    },
+    {
+      key: "subMenuSetting",
+      icon: <FaDiagramProject size={24} />,
+      label: "Project",
+      children: [
+        {
+          key: "/newrequest",
+          label: (
+            <Link to="/newrequest" className="text-white">
+              New Request
+            </Link>
+          ),
+        },
+        {
+          key: "/activeproject",
+          label: (
+            <Link to="/activeproject" className="text-white hover:text-white">
+              Active Project
+            </Link>
+          ),
+        },
+        {
+          key: "/pendingproject",
+          label: (
+            <Link to="/pendingproject" className="text-white hover:text-white">
+              Pending Project
+            </Link>
+          ),
+        },
+      ],
     },
     // {
     //     key: "/sub-category",

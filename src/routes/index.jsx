@@ -22,6 +22,9 @@ import Contact from "../Pages/Dashboard/Contact/Contact.jsx";
 import Slider from "../Pages/Dashboard/Slider/Slider.jsx";
 import Customer from "../Pages/Dashboard/Customer/Customer.jsx";
 import PushNotification from "../Pages/Dashboard/PushNotification/PushNotification.jsx";
+import PendingProject from "../Pages/Dashboard/Project/PendingProject/PendingProject.jsx";
+import ActiveProject from "../Pages/Dashboard/Project/ActiveProject/ActiveProject.jsx";
+import NewRequest from "../Pages/Dashboard/Project/NewRequest/NewRequest.jsx";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +90,18 @@ const router = createBrowserRouter([
       {
         path: "/setting",
         element: <Setting />,
+      },
+      {
+        path: "/newrequest",
+        element: <NewRequest />,
+      },
+      {
+        path: "/activeproject",
+        element: <ActiveProject />,
+      },
+      {
+        path: "/pendingproject",
+        element: <PendingProject />,
       },
     ],
   },

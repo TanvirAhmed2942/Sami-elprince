@@ -6,6 +6,7 @@ import { CSVLink, CSVDownload } from "react-csv";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoEye } from "react-icons/io5";
 import { PiFileCsvDuotone } from "react-icons/pi";
+import GetPageName from "../../../components/common/GetPageName";
 
 // UserAvatar Component
 const UserAvatar = ({ shop }) => (
@@ -211,7 +212,7 @@ function Head({
       }}
     >
       <div className="flex justify-between items-center px-10 py-5">
-        <h1 className="text-[20px] font-medium">{pagename}</h1>
+        <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
 
         <div className="flex gap-3 items-center">
           <Input
