@@ -81,7 +81,7 @@ const Contact = () => {
               align="center"
               className="flex-auto"
             >
-              <div className="bg-white rounded-xl shadow-[0px_0px_15px_4px_rgba(0,_0,_0,_0.1)] p-4 hover:bg-gtdandy text-gtdandy hover:text-black">
+              <div className="bg-white rounded-xl shadow-[0px_0px_15px_4px_rgba(0,_0,_0,_0.1)] p-4 hover:bg-prince text-prince hover:text-white">
                 {item.icon}
               </div>
               <div className="flex flex-col items-center">
@@ -93,7 +93,7 @@ const Contact = () => {
         </div>
         <button
           onClick={showModal}
-          className="w-4/5 h-12 bg-white rounded-lg border border-1 border-gtdandy text-gtdandy font-bold tracking-wider hover:bg-gtdandy hover:text-white"
+          className="w-4/5 h-12 bg-white rounded-lg border border-1 border-prince text-prince font-bold tracking-wider hover:bg-prince hover:text-white"
         >
           Edit Info
         </button>

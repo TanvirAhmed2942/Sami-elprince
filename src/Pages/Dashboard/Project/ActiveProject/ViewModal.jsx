@@ -40,7 +40,13 @@ const ViewModal = ({ visible, onClose, record }) => {
   );
 
   return (
-    <Modal open={visible} onCancel={onClose} footer={null} width={1000}>
+    <Modal
+      open={visible}
+      onCancel={onClose}
+      footer={null}
+      width={1000}
+      centered
+    >
       <div className="py-10 px-5">
         <div className="p-5 rounded-lg border mb-6">
           <ConfigProvider

@@ -18,7 +18,7 @@ const stats = [
 
 const Card = ({ item }) => {
   return (
-    <div className="flex w-full items-center justify-center h-32 rounded-xl bg-white  gap-10">
+    <div className="flex w-full items-center justify-center h-40 rounded-xl bg-white  gap-10">
       <div
         className={`${item.bg} w-20 h-20 flex items-center justify-center rounded-full `}
       >
@@ -74,7 +74,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="w-full h-[500px] p-4 bg-white rounded mt-4 relative shadow-md flex flex-col justify-evenly">
+      <div className="w-full h-[500px] p-4 bg-white rounded-lg mt-4 relative  flex flex-col justify-evenly">
         <UserStatistics />
       </div>
     </div>

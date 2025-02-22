@@ -1,26 +1,19 @@
 import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
-import { MdOutlineCategory } from "react-icons/md";
-import { AiOutlineDashboard } from "react-icons/ai";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { HiUserGroup } from "react-icons/hi2";
-import { HiUsers } from "react-icons/hi2";
+
 import { TbBellBolt, TbDashboard, TbDatabaseDollar } from "react-icons/tb";
-import { IoSettingsOutline } from "react-icons/io5";
-import { BiSolidCategory } from "react-icons/bi";
-import { PiChartPieSliceFill, PiCopyBold } from "react-icons/pi";
+
 import { RxDashboard } from "react-icons/rx";
-import { TbBulbFilled } from "react-icons/tb";
-import { HiTicket } from "react-icons/hi2";
-import { IoNewspaper } from "react-icons/io5";
-import { IoBriefcase } from "react-icons/io5";
+
 import { PiWallet } from "react-icons/pi";
-import { AiOutlineUser } from "react-icons/ai";
+
 import { PiCirclesThreePlusLight } from "react-icons/pi";
 import { RiSettings5Line } from "react-icons/ri";
 import { FiLogOut, FiUsers } from "react-icons/fi";
 import { FaHandsHelping } from "react-icons/fa";
 import { FaDiagramProject } from "react-icons/fa6";
+import { CgTemplate } from "react-icons/cg";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -140,7 +133,7 @@ const Sidebar = () => {
 
     {
       key: "subMenuSetting",
-      icon: <PiCirclesThreePlusLight size={24} />,
+      icon: <CgTemplate size={24} />,
       label: "Cms",
       children: [
         // {
@@ -159,22 +152,7 @@ const Sidebar = () => {
         //     </Link>
         //   ),
         // },
-        {
-          key: "/slider",
-          label: (
-            <Link to="/slider" className="text-white">
-              Slider
-            </Link>
-          ),
-        },
-        {
-          key: "/category",
-          label: (
-            <Link to="/category" className="text-white hover:text-white">
-              Category
-            </Link>
-          ),
-        },
+
         {
           key: "/privacy-policy",
           label: (

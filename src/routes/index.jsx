@@ -19,7 +19,7 @@ import Transaction from "../Pages/Dashboard/Transaction/Transaction.jsx";
 import Setting from "../Pages/Dashboard/Setting/Setting.jsx";
 import FaqCollapse from "../Pages/Dashboard/FAQ/FaqCollapse.jsx";
 import Contact from "../Pages/Dashboard/Contact/Contact.jsx";
-import Slider from "../Pages/Dashboard/Slider/Slider.jsx";
+
 import Customer from "../Pages/Dashboard/Customer/Customer.jsx";
 import PushNotification from "../Pages/Dashboard/PushNotification/PushNotification.jsx";
 import PendingProject from "../Pages/Dashboard/Project/PendingProject/PendingProject.jsx";
@@ -51,10 +51,10 @@ const router = createBrowserRouter([
         path: "/customer",
         element: <Customer />,
       },
-      {
-        path: "/slider",
-        element: <Slider />,
-      },
+      // {
+      //   path: "/slider",
+      //   element: <Slider />,
+      // },
       {
         path: "/pushnotification",
         element: <PushNotification />,

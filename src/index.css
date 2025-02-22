@@ -43,7 +43,7 @@ p {
 /* Collapse */
 .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
   margin-top: 20px;
-  color: #ffc301;
+  color: #975cdb;
   font-size: large;
 }
 :where(.css-dev-only-do-not-override-11lehqq).ant-collapse-borderless
@@ -204,7 +204,9 @@ p {
   color: black !important;
   border: none !important;
 }
-
+.ant-table-row:nth-child(even) {
+  background-color: #f7f7f7;
+}
 .ant-steps
   .ant-steps-item-finish
   > .ant-steps-item-container

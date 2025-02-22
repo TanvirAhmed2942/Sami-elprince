@@ -21,7 +21,9 @@ const Login = () => {
       <Form onFinish={onFinish} layout="vertical">
         <Form.Item
           name="email"
-          label={<p>Enter Your Email</p>}
+          label={
+            <p className="text-black font-normal text-base">Enter Your Email</p>
+          }
           rules={[
             {
               required: true,
@@ -54,7 +56,7 @@ const Login = () => {
             type="password"
             placeholder="Enter your password"
             style={{
-              height: 46,
+              height: 45,
               border: "1px solid #d9d9d9",
               outline: "none",
               boxShadow: "none",
@@ -72,7 +74,7 @@ const Login = () => {
           </Form.Item>
 
           <a
-            className="login-form-forgot text-[#edb50e] hover:text-gtdandy font-semibold"
+            className="login-form-forgot text-prince/80 hover:text-prince font-semibold"
             href="/auth/forgot-password"
           >
             Forgot password
@@ -92,7 +94,7 @@ const Login = () => {
 
               marginTop: 20,
             }}
-            className="flex items-center justify-center bg-gtdandy rounded-lg text-base"
+            className="flex items-center justify-center bg-prince hover:bg-prince/90 rounded-lg text-base"
           >
             {/* {isLoading? < Spinner/> : "Sign in"} */} Sign in
           </button>

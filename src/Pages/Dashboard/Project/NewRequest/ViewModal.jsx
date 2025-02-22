@@ -142,6 +142,7 @@ const ViewModal = ({
       onCancel={onClose}
       footer={null}
       width={1000}
+      centered
     >
       <div className="w-full flex justify-end gap-2 my-6">
         <button

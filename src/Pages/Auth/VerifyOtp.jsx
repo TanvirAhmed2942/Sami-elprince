@@ -37,7 +37,7 @@ const VerifyOtp = () => {
               borderRadius: "8px",
               margin: "16px",
               fontSize: "20px",
-              border: "1px solid #ffc301 ",
+              border: "1px solid #975cdb ",
               color: "#2B2A2A",
               outline: "none",
               marginBottom: 10,
@@ -51,8 +51,8 @@ const VerifyOtp = () => {
 
           <p
             onClick={handleResendEmail}
-            className="login-form-forgot"
-            style={{ color: "#ffc301 ", cursor: "pointer" }}
+            className="login-form-forgot font-medium"
+            style={{ color: "#975cdb ", cursor: "pointer" }}
           >
             Resend
           </p>
@@ -64,10 +64,10 @@ const VerifyOtp = () => {
             style={{
               width: "100%",
               height: 45,
-              border: "1px solid #ffc301 ",
+              border: "1px solid #975cdb ",
               outline: "none",
               boxShadow: "none",
-              background: "#ffc301 ",
+              background: "#975cdb ",
               color: "white",
             }}
           >

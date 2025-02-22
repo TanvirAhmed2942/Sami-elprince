@@ -7,7 +7,7 @@ function PrivacyPolicy() {
 
   return (
     <>
-      <div className="w-full p-10 ">
+      <div className="w-full px-10 h-fit">
         <h1 className="text-[20px] font-medium">Privacy Policy</h1>
         <div className="w-5/5  bg-black">
           <JoditEditor
@@ -27,7 +27,7 @@ function PrivacyPolicy() {
           />
         </div>
         <div className="flex items-center justify-end">
-          <button className="bg-gtdandy text-[16px] text-white px-10 py-2.5 mt-5 rounded-md">
+          <button className="bg-prince hover:bg-prince/90 text-white  px-10 py-2.5 mt-5 rounded-md">
             Save
           </button>
         </div>

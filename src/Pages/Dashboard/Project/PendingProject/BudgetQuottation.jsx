@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Form,
   Input,
@@ -11,7 +12,7 @@ import {
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { TiPlus, TiTick } from "react-icons/ti";
 import { BsFillEyeFill } from "react-icons/bs";
-import ViewModal from "./ViewModal";
+import ViewModalProvider from "./ViewModalProvider";
 
 const ActionButtons = ({ record, handleAccept, handleDelete, handleView }) => {
   return (
@@ -40,7 +41,7 @@ const ActionButtons = ({ record, handleAccept, handleDelete, handleView }) => {
   );
 };
 
-const CustomerTable = ({ data, setData }) => {
+const BudgetTable = ({ data, setData }) => {
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -85,14 +86,15 @@ const CustomerTable = ({ data, setData }) => {
   // );
 
   const filteredData = data.filter((item) =>
-    [item.customername, item.service, item.address].some((field) =>
-      field.toLowerCase().includes(searchText.toLowerCase())
-    )
+    [item.date, item.serviceprovider, item.budget, item.timeline]
+      .map((field) => String(field || "").toLowerCase()) // Convert everything to string safely
+      .some((field) => field.includes(searchText.toLowerCase()))
   );
   const columns = [
+    { title: "Dtae", dataIndex: "date", width: "15%" },
     {
-      title: "Customer Name",
-      dataIndex: "customername",
+      title: "Service Provider",
+      dataIndex: "serviceprovider",
       width: "20%",
       render: (text, record) => (
         <div className="flex items-center gap-2">
@@ -101,8 +103,8 @@ const CustomerTable = ({ data, setData }) => {
         </div>
       ),
     },
-    { title: "Service", dataIndex: "service", width: "25%" },
-    { title: "Address", dataIndex: "address", width: "25%" },
+    { title: "Budget", dataIndex: "budget", width: "25%" },
+    { title: "Timeline", dataIndex: "timeline", width: "25%" },
     {
       title: "Action (view/accept/reject)",
       dataIndex: "action",
@@ -119,8 +121,8 @@ const CustomerTable = ({ data, setData }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center px-10 py-5">
-        <h1 className="text-[20px] font-medium">New Request</h1>
+      <div className="flex justify-between items-center ">
+        <h1 className="text-[20px] font-medium">Budget Quotation</h1>
         <div className="flex gap-2">
           <Input
             placeholder="Search..."
@@ -140,11 +142,11 @@ const CustomerTable = ({ data, setData }) => {
             </button>
           )}
         </div>
-      </div>
-      {/* <div className="flex justify-end px-10"> */}
+      </div>{" "}
+      {/* <div className="flex justify-end px-10">
 
       {/* </div> */}
-      <div className="px-10">
+      <div>
         <Form form={form} component={false}>
           <ConfigProvider
             theme={{
@@ -158,6 +160,7 @@ const CustomerTable = ({ data, setData }) => {
                   itemActiveBg: "#975cdb",
                   // itemHoverBg: "#ffffff",
                   itemBg: "#000000",
+                  // itemBg: "#ffffff",
                 },
                 Button: {
                   defaultHoverBg: "#975cdb ",
@@ -176,12 +179,21 @@ const CustomerTable = ({ data, setData }) => {
               dataSource={filteredData}
               columns={columns}
               rowClassName="editable-row"
-              pagination={{ defaultPageSize: 5, position: ["bottomCenter"] }}
+              pagination={{ defaultPageSize: 5 }}
+              className="h-[350px] overflow-y-scroll scroll-smooth [&::-webkit-scrollbar]:w-1.5
+            [&::-webkit-scrollbar-track]:rounded-full
+            [&::-webkit-scrollbar-track]:bg-gray-100
+            [&::-webkit-scrollbar-thumb]:rounded-full
+            [&::-webkit-scrollbar-thumb]:bg-gray-300
+            dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+            dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
             />
           </ConfigProvider>
+          {/* dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 */}
+          {/* dark:[&::-webkit-scrollbar-track]:bg-green-700 */}
         </Form>
       </div>
-      <ViewModal
+      <ViewModalProvider
         visible={modalVisible}
         onClose={closeModal}
         record={selectedRecord}
@@ -192,17 +204,20 @@ const CustomerTable = ({ data, setData }) => {
   );
 };
 
-const NewRequest = () => {
+const BudgetQuottation = () => {
   const originData = Array.from({ length: 20 }).map((_, i) => ({
     key: i.toString(),
-    customername: `Edward ${i}`,
-    service: `Service ${i}`,
+    date: "2022-01-01",
+    serviceprovider: `Edward ${i}`,
+    budget: Math.round(Math.random() * 100),
+    timeline: "3 months",
+
     address: `London Park no. ${i}`,
     avatar: "https://i.pravatar.cc/50?img=2",
   }));
   const [data, setData] = useState(originData);
 
-  return <CustomerTable data={data} setData={setData} />;
+  return <BudgetTable data={data} setData={setData} />;
 };
 
-export default NewRequest;
+export default BudgetQuottation;

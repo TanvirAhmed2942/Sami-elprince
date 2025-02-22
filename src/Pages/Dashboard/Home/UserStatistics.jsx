@@ -141,10 +141,34 @@ export default function UserStatistics() {
           />
           <XAxis dataKey="name" />
           <YAxis hide={false} />
-          <Tooltip />
+          {/* <Tooltip cursor={{ fill: "transparent" }} /> */}
+          <Tooltip
+            content={<CustomTooltip />}
+            cursor={{ fill: "transparent" }}
+          />
           <Bar dataKey="pv" fill="#975CDB" barSize={25} />
         </BarChart>
       </ResponsiveContainer>
     </>
   );
 }
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="relative flex items-center ml-2">
+        {/* Arrow (pointing left) */}
+        <div className="absolute w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-prince -left-2"></div>
+
+        {/* Tooltip Content */}
+        <div className="bg-prince p-2 text-white rounded shadow-md ">
+          {payload.map((pld, index) => (
+            <div key={index}>{pld.value}K</div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+};

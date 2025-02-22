@@ -6,7 +6,7 @@ import {
   Popconfirm,
   Table,
   Typography,
-  Button,
+  ConfigProvider,
   Avatar,
 } from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -196,15 +196,41 @@ const Customer = () => {
 
       <div className=" px-10">
         <Form form={form} component={false}>
-          <Table
-            rowSelection={rowSelection}
-            components={{ body: { cell: EditableCell } }}
-            bordered
-            dataSource={filteredData} // Apply filtering here
-            columns={mergedColumns}
-            rowClassName="editable-row"
-            pagination={{ onChange: cancel, defaultPageSize: 5 }}
-          />
+          <ConfigProvider
+            theme={{
+              components: {
+                Table: {
+                  rowSelectedBg: "#f5effb",
+                  headerBg: "#f5effb",
+                },
+                Pagination: {
+                  borderRadius: "3px",
+                  itemActiveBg: "#975cdb",
+                  // itemHoverBg: "#ffffff",
+                  itemBg: "#000000",
+                },
+                Button: {
+                  defaultHoverBg: "#975cdb ",
+                  defaultHoverColor: "white",
+                  defaultHoverBorderColor: "#975cdb ",
+                },
+              },
+            }}
+          >
+            <Table
+              rowSelection={rowSelection}
+              components={{ body: { cell: EditableCell } }}
+              bordered
+              dataSource={filteredData} // Apply filtering here
+              columns={mergedColumns}
+              rowClassName="editable-row"
+              pagination={{
+                onChange: cancel,
+                defaultPageSize: 5,
+                position: ["bottomCenter"],
+              }}
+            />
+          </ConfigProvider>
         </Form>
       </div>
     </>
