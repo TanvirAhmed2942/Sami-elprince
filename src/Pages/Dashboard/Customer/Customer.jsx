@@ -293,7 +293,7 @@ const EditableCell = ({
 const Customer = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState(originData);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(""); // State for search input
   const [editingKey, setEditingKey] = useState("");
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
@@ -325,9 +325,14 @@ const Customer = () => {
     setData(data.filter((item) => item.key !== key));
   };
 
-  const handleBulkDelete = () => {
+  const handleDeleteSelected = () => {
     setData(data.filter((item) => !selectedRowKeys.includes(item.key)));
-    setSelectedRowKeys([]);
+    setSelectedRowKeys([]); // Reset selected rows
+  };
+
+  const handleDeleteAll = () => {
+    setData([]);
+    setSelectedRowKeys([]); // Reset selected rows
   };
 
   const rowSelection = {
@@ -335,6 +340,7 @@ const Customer = () => {
     onChange: setSelectedRowKeys,
   };
 
+  // Function to filter table based on search text
   const filteredData = data.filter(
     (item) =>
       item.customername.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -414,6 +420,19 @@ const Customer = () => {
     },
   ];
 
+  const mergedColumns = columns.map((col) => ({
+    ...col,
+    onCell: (record) =>
+      col.editable
+        ? {
+            inputType: col.dataIndex === "phone" ? "number" : "text",
+            dataIndex: col.dataIndex,
+            title: col.title,
+            editing: isEditing(record),
+          }
+        : undefined,
+  }));
+
   return (
     <>
       <div className="flex justify-between items-center px-10 py-5">
@@ -426,9 +445,48 @@ const Customer = () => {
             allowClear
             style={{ width: 200, height: 40 }}
           />
+          {selectedRowKeys.length >= 2 && (
+            <Popconfirm
+              title={
+                selectedRowKeys.length === data.length
+                  ? "Are you sure to delete all?"
+                  : "Are you sure to delete selected?"
+              }
+              onConfirm={
+                selectedRowKeys.length === data.length
+                  ? handleDeleteAll
+                  : handleDeleteSelected
+              }
+            >
+              <Button
+                type="primary"
+                danger
+                icon={<RiDeleteBin6Line />}
+                style={{ marginLeft: 8 }}
+              >
+                {selectedRowKeys.length === data.length
+                  ? "Delete All"
+                  : "Delete Selected"}
+              </Button>
+            </Popconfirm>
+          )}
+        </div>
+      </div>
+
+      <div className=" px-10">
+        <Form form={form} component={false}>
           <ConfigProvider
             theme={{
               components: {
+                Table: {
+                  rowSelectedBg: "#f5effb",
+                  headerBg: "#f5effb",
+                },
+                Pagination: {
+                  borderRadius: "3px",
+                  itemActiveBg: "#975cdb",
+                  itemBg: "#000000",
+                },
                 Button: {
                   defaultHoverBg: "#975cdb ",
                   defaultHoverColor: "white",
@@ -437,29 +495,18 @@ const Customer = () => {
               },
             }}
           >
-            {selectedRowKeys.length > 1 && (
-              <Button
-                onClick={handleBulkDelete}
-                className="h-10 bg-prince text-white hover:bg-prince/90 border-none"
-              >
-                {selectedRowKeys.length === data.length
-                  ? "Delete All"
-                  : "Delete Selected"}
-              </Button>
-            )}
-          </ConfigProvider>
-        </div>
-      </div>
-      <div className="px-10">
-        <Form form={form} component={false}>
-          <ConfigProvider>
             <Table
               rowSelection={rowSelection}
+              components={{ body: { cell: EditableCell } }}
               bordered
-              dataSource={filteredData}
-              columns={columns}
+              dataSource={filteredData} // Apply filtering here
+              columns={mergedColumns}
               rowClassName="editable-row"
-              pagination={{ defaultPageSize: 5, position: ["bottomCenter"] }}
+              pagination={{
+                onChange: cancel,
+                defaultPageSize: 5,
+                position: ["bottomCenter"],
+              }}
             />
           </ConfigProvider>
         </Form>

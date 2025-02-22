@@ -126,11 +126,13 @@ function Transaction() {
       render: (status) => (
         <p
           className={`${
-            status === "Sent"
-              ? "text-green-500 bg-green-50 border border-green-500 w-fit px-1.5 py-0.5 rounded-lg"
-              : status === "pending"
-              ? "text-sky-500 bg-sky-50 border border-sky-500 w-fit px-1.5 py-0.5 rounded-lg"
-              : "text-red-500 bg-red-50 border border-red-500 w-fit px-1.5 py-0.5 rounded-lg"
+            status.charAt(0).toLocaleUpperCase() ===
+            "Sent".charAt(0).toLocaleUpperCase()
+              ? "text-green-500 bg-green-50 border border-green-500 w-20 px-1.5 py-0.5 rounded-lg"
+              : status.charAt(0).toUpperCase() ===
+                "Paid".charAt(0).toLocaleUpperCase()
+              ? "text-sky-500 bg-sky-50 border border-sky-500 w-20 px-1.5 py-0.5 rounded-lg"
+              : "text-red-500 bg-red-50 border border-red-500 w-20 px-1.5 py-0.5 rounded-lg"
           }`}
         >
           {status}
