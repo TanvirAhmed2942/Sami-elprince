@@ -148,6 +148,7 @@ export default function UserStatistics() {
             isAnimationActive={true}
             cursor={false}
           />
+
           <Bar dataKey="pv" fill="#975CDB" barSize={35} radius={4} />
         </BarChart>
       </ResponsiveContainer>
