@@ -144,9 +144,11 @@ export default function UserStatistics() {
           {/* <Tooltip cursor={{ fill: "transparent" }} /> */}
           <Tooltip
             content={<CustomTooltip />}
-            cursor={{ fill: "transparent" }}
+            // cursor={{ fill: "transparent" }}
+            isAnimationActive={true}
+            cursor={false}
           />
-          <Bar dataKey="pv" fill="#975CDB" barSize={25} />
+          <Bar dataKey="pv" fill="#975CDB" barSize={35} radius={4} />
         </BarChart>
       </ResponsiveContainer>
     </>
@@ -156,7 +158,7 @@ export default function UserStatistics() {
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="relative flex items-center ml-2">
+      <div className="relative flex items-center ml-4">
         {/* Arrow (pointing left) */}
         <div className="absolute w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-r-8 border-r-prince -left-2"></div>
 
