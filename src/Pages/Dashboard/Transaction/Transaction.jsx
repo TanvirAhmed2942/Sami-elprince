@@ -34,7 +34,7 @@ const initialData = [
     name: "Paul McCartney",
     orderid: "#121idj54",
     ammount: 10,
-    status: "pending",
+    status: "Pending",
   },
   {
     key: 3,
@@ -43,7 +43,7 @@ const initialData = [
     name: "George Harrison",
     orderid: "#1256789",
     ammount: 15,
-    status: "pending",
+    status: "Pending",
   },
   {
     key: 4,
@@ -53,6 +53,15 @@ const initialData = [
     orderid: "#1239874",
     ammount: 20,
     status: "Sent",
+  },
+  {
+    key: 5,
+    date: "2021-11-20",
+    customername: shop,
+    name: "Ringo Starr",
+    orderid: "#1239874",
+    ammount: 20,
+    status: "Unpaid",
   },
 ];
 
@@ -118,10 +127,10 @@ function Transaction() {
         <p
           className={`${
             status === "Sent"
-              ? "text-green-500"
+              ? "text-green-500 bg-green-50 border border-green-500 w-fit px-1.5 py-0.5 rounded-lg"
               : status === "pending"
-              ? "text-sky-500"
-              : "text-red-500"
+              ? "text-sky-500 bg-sky-50 border border-sky-500 w-fit px-1.5 py-0.5 rounded-lg"
+              : "text-red-500 bg-red-50 border border-red-500 w-fit px-1.5 py-0.5 rounded-lg"
           }`}
         >
           {status}
