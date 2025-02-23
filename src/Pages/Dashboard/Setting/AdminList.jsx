@@ -393,3 +393,7 @@ const columns = (onEdit, onDelete) => [
   },
 ];
 export default AdminList;
+
+AdminList.js;
+
+AdminList.js;

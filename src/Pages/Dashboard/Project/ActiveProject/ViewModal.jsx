@@ -28,10 +28,10 @@ const ViewModal = ({ visible, onClose, record }) => {
               <MdDateRange /> {date}
             </h2>
           </div>
-          <button>
+          <button className="group">
             <RiMessageLine
               size={30}
-              className="text-prince hover:-scale-x-100 hover:translate-x-1 hover:transition-all duration-100"
+              className="text-prince transition-transform duration-200 group-hover:scale-x-[-1] group-hover:translate-x-1"
             />
           </button>
         </div>

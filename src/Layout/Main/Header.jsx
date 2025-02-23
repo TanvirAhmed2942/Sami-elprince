@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { imageUrl } from "../../redux/api/baseApi";
 import { Link } from "react-router-dom";
 import { FaRegBell } from "react-icons/fa6";
 import { UserOutlined, DownOutlined } from "@ant-design/icons";
-import { Badge, Space, Flex } from "antd";
-import { Avatar, Dropdown, ConfigProvider } from "antd";
+import { Badge, Space, Flex, Avatar, Dropdown, ConfigProvider } from "antd";
 import { useUser } from "../../provider/User";
+import { US, GB, FR, DE } from "country-flag-icons/react/3x2";
 
 const Header = () => {
   const { user } = useUser();
@@ -13,12 +13,52 @@ const Header = () => {
     ? user?.image
     : `${imageUrl}/${user?.image}`;
 
-  const items = [
+  const [selectedCountry, setSelectedCountry] = useState("USA");
+
+  const handleCountryChange = (value) => {
+    setSelectedCountry(value);
+    console.log("Selected Language:", value);
+  };
+
+  const countryList = [
     {
-      label: <Link to="auth/login">Log Out</Link>,
-      key: "0",
+      label: (
+        <div className="flex items-center gap-1.5 font-semibold">
+          <US title="United States" className="w-8 h-8 rounded-lg" /> Eng (USA)
+        </div>
+      ),
+      key: "USA",
+    },
+    {
+      label: (
+        <div className="flex items-center gap-1.5 font-semibold">
+          <GB title="United Kingdom" className="w-8 h-8 rounded-lg" /> Eng (UK)
+        </div>
+      ),
+      key: "UK",
+    },
+    {
+      label: (
+        <div className="flex items-center gap-1.5 font-semibold">
+          <FR title="France" className="w-8 h-8 rounded-lg" /> Fre (FR)
+        </div>
+      ),
+      key: "France",
+    },
+    {
+      label: (
+        <div className="flex items-center gap-1.5 font-semibold">
+          <DE title="Germany" className="w-8 h-8 rounded-lg" /> DE (GER)
+        </div>
+      ),
+      key: "Germany",
     },
   ];
+
+  const userMenuItems = [
+    { label: <Link to="/auth/login">Log Out</Link>, key: "logout" },
+  ];
+
   return (
     <ConfigProvider
       theme={{
@@ -38,8 +78,28 @@ const Header = () => {
         justify="end"
         className="w-100% h-[100px] px-10 py-2 shadow-sm overflow-auto bg-white"
       >
-        {/* Right-side icons and user info */}
         <Flex align="center" gap={30} justify="flex-end">
+          {/* Country Language Dropdown */}
+          <Dropdown
+            trigger={["click"]}
+            menu={{
+              items: countryList.map((country) => ({
+                key: country.key,
+                label: (
+                  <div onClick={() => handleCountryChange(country.key)}>
+                    {country.label}
+                  </div>
+                ),
+              })),
+            }}
+          >
+            <a className="flex gap-2 cursor-pointer hover:text-black">
+              {countryList.find((c) => c.key === selectedCountry)?.label ||
+                "Select Language"}
+              <DownOutlined />
+            </a>
+          </Dropdown>
+
           {/* Notification Badge */}
           <div className="w-8 h-8 bg-[#f5effb] flex items-center justify-center p-6 rounded-md relative">
             <Link to="/notification" className="flex">
@@ -55,12 +115,12 @@ const Header = () => {
 
           {/* Dropdown Menu */}
           <Flex vertical align="start">
-            <Dropdown menu={{ items }} trigger={["click"]}>
+            <Dropdown menu={{ items: userMenuItems }} trigger={["click"]}>
               <a onClick={(e) => e.preventDefault()}>
-                <Space>
+                <div className="mr-4 flex gap-2.5 font-semibold hover:text-black">
                   {`${user?.firstName} ${user?.lastName}`}
                   <DownOutlined />
-                </Space>
+                </div>
               </a>
             </Dropdown>
             <p>Super Admin</p>
