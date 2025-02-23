@@ -67,7 +67,7 @@ const Home = () => {
           }
         />
 
-        <div className="flex items-center justify-between  gap-10 w-full">
+        <div className="flex items-center justify-between flex-wrap lg:flex-nowrap gap-10 w-full">
           {stats.map((item, index) => (
             <Card key={index} item={item} />
           ))}

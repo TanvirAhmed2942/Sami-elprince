@@ -55,7 +55,7 @@ const Sidebar = () => {
     // },
     {
       key: "/transaction",
-      icon: <PiWallet size={24} />,
+      icon: <PiWallet size={25} />,
       label: <Link to="/transaction">Transaction</Link>,
     },
     // {
@@ -86,12 +86,12 @@ const Sidebar = () => {
         }, */
     {
       key: "/customer",
-      icon: <FiUsers size={24} />,
+      icon: <FiUsers size={23} />,
       label: <Link to="/customer">Customer</Link>,
     },
     {
       key: "subMenuSetting1",
-      icon: <FaDiagramProject size={24} />,
+      icon: <FaDiagramProject size={23} />,
       label: "Project",
       children: [
         {
@@ -206,7 +206,7 @@ const Sidebar = () => {
     },
     {
       key: "/logout",
-      icon: <FiLogOut size={23} color="white" />,
+      icon: <FiLogOut size={24} color="white" />,
       label: (
         <p onClick={handleLogout} className="text-white hover:text-white">
           Logout
