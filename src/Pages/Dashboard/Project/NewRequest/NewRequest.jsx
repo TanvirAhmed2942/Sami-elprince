@@ -6,12 +6,14 @@ import {
   Table,
   Avatar,
   message,
+  Button,
   ConfigProvider,
 } from "antd";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { DeleteOutlined, SearchOutlined } from "@ant-design/icons";
 import { TiPlus, TiTick } from "react-icons/ti";
 import { BsFillEyeFill } from "react-icons/bs";
 import ViewModal from "./ViewModal";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const ActionButtons = ({ record, handleAccept, handleDelete, handleView }) => {
   return (
@@ -122,23 +124,37 @@ const CustomerTable = ({ data, setData }) => {
       <div className="flex justify-between items-center px-10 py-5">
         <h1 className="text-[20px] font-medium">New Request</h1>
         <div className="flex gap-2">
-          <Input
-            placeholder="Search..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            allowClear
-            style={{ width: 200, height: 40 }}
-          />
-          {selectedRowKeys.length > 1 && ( // Only show button if more than one row is selected
-            <button
-              className="bg-prince text-white py-2 px-4 rounded hover:bg-purple-600"
-              onClick={handleDeleteSelected}
-            >
-              {selectedRowKeys.length === data.length
-                ? "Delete All"
-                : "Delete Selected"}
-            </button>
-          )}
+          <ConfigProvider
+            theme={{
+              components: {
+                Button: {
+                  defaultHoverBg: "#975cdb ",
+                  defaultHoverColor: "white",
+                  defaultHoverBorderColor: "#975cdb ",
+                },
+              },
+            }}
+          >
+            <Input
+              placeholder="Search..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              allowClear
+              prefix={<SearchOutlined />}
+              className="h-9"
+            />
+            {selectedRowKeys.length > 1 && ( // Only show button if more than one row is selected
+              <Button
+                className="bg-prince/90 h-9 text-white hover:bg-prince border-none"
+                onClick={handleDeleteSelected}
+                icon={<RiDeleteBin6Line />}
+              >
+                {selectedRowKeys.length === data.length
+                  ? "Delete All"
+                  : "Delete Selected"}
+              </Button>
+            )}
+          </ConfigProvider>
         </div>
       </div>
       {/* <div className="flex justify-end px-10"> */}

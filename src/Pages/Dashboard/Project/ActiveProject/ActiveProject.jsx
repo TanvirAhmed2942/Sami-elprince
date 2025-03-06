@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Form, Input, Table, Avatar, Button, ConfigProvider } from "antd";
 import { BsFillEyeFill } from "react-icons/bs";
 import ViewModal from "./ViewModal";
-
+import { SearchOutlined } from "@ant-design/icons";
+import { RiDeleteBin6Line } from "react-icons/ri";
 const ActionButtons = ({ record, handleView }) => {
   return (
     <div className="flex items-center justify-start gap-4">
@@ -88,26 +89,37 @@ const CustomerTable = ({ data, setData }) => {
       <div className="flex justify-between items-center px-10 py-5">
         <h1 className="text-[20px] font-medium">Active Projects</h1>
         <div className="flex gap-2">
-          <Input
-            placeholder="Search by Order ID, Name, Provider..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            allowClear
-            style={{ width: 250, height: 40 }}
-          />
-          {selectedRowKeys.length > 1 && (
-            <button
-              type="primary"
-              danger
-              onClick={handleDeleteSelected}
-              style={{ height: 40 }}
-              className="bg-prince text-white py-2 px-4 rounded hover:bg-purple-600"
-            >
-              {selectedRowKeys.length === data.length
-                ? "Delete All"
-                : "Delete Selected"}
-            </button>
-          )}
+          <ConfigProvider
+            theme={{
+              components: {
+                Button: {
+                  defaultHoverBg: "#975cdb ",
+                  defaultHoverColor: "white",
+                  defaultHoverBorderColor: "#975cdb ",
+                },
+              },
+            }}
+          >
+            <Input
+              placeholder="Search by Order ID, Name, Provider..."
+              value={searchText}
+              prefix={<SearchOutlined />}
+              onChange={(e) => setSearchText(e.target.value)}
+              allowClear
+              className="h-9"
+            />
+            {selectedRowKeys.length > 1 && (
+              <Button
+                className="bg-prince/90 h-9 text-white hover:bg-prince border-none"
+                onClick={handleDeleteSelected}
+                icon={<RiDeleteBin6Line />}
+              >
+                {selectedRowKeys.length === data.length
+                  ? "Delete All"
+                  : "Delete Selected"}
+              </Button>
+            )}
+          </ConfigProvider>
         </div>
       </div>
       <div className="px-10">

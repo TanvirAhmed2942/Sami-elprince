@@ -18,7 +18,7 @@ const stats = [
 
 const Card = ({ item }) => {
   return (
-    <div className="flex w-full items-center justify-center h-40 rounded-xl bg-white  gap-10">
+    <div className="flex w-full items-center justify-center h-32 rounded-xl bg-white  gap-10">
       <div
         className={`${item.bg} w-20 h-20 flex items-center justify-center rounded-full `}
       >

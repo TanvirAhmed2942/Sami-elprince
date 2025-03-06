@@ -66,7 +66,8 @@ function ServiceProvidersList() {
             placeholder="Search by Name, Email or Phone"
             onChange={(e) => handleSearch(e.target.value)}
             prefix={<SearchOutlined />}
-            style={{ width: 200, height: 40 }}
+            // style={{ width: 200, height: 42 }}
+            className="h-9"
           />
           {selectedRowKeys.length > 0 && (
             <Button
@@ -74,7 +75,7 @@ function ServiceProvidersList() {
               // danger
               icon={<DeleteOutlined />}
               onClick={handleDeleteSelected}
-              className="bg-[#9d6fd6] text-white border-none h-10"
+              className="bg-[#9d6fd6] text-white border-none h-9"
             >
               Delete Selected
             </Button>

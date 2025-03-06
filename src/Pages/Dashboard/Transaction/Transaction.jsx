@@ -225,14 +225,14 @@ function Head({
       <div className="flex justify-between items-center px-10 py-5">
         <h1 className="text-[20px] font-medium">{GetPageName()}</h1>
 
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center justify-end  w-full">
           <Input
             placeholder="Search by Recipient, Ocation, Price, or Status"
             onChange={(e) => onSearch(e.target.value)}
             prefix={<SearchOutlined />}
-            style={{ width: 200, height: 40 }}
+            className="h-9 w-28"
           />
-          <DatePicker picker="month" className="h-10" />
+          <DatePicker picker="month" className="w-28 h-9" />
           <ConfigProvider
             theme={{
               components: {
@@ -244,7 +244,7 @@ function Head({
               },
             }}
           >
-            <Button className="h-10  bg-prince text-white border-none">
+            <Button className="h-9  bg-prince text-white border-none">
               <CSVLink
                 data={initialData}
                 className="flex items-center justify-center gap-2"
@@ -259,7 +259,7 @@ function Head({
               <Button
                 onClick={handleDelete}
                 icon={<DeleteOutlined />}
-                className="bg-[#9d6fd6] text-white border-none h-10"
+                className="bg-prince text-white border-none h-9"
               >
                 {selectedRowKeys.length === filteredData.length
                   ? "Delete All"

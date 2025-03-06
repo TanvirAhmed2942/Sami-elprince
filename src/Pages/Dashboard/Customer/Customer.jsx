@@ -13,7 +13,7 @@ import {
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit3 } from "react-icons/fi";
 import GetPageName from "../../../components/common/GetPageName";
-
+import { SearchOutlined } from "@ant-design/icons";
 const originData = Array.from({ length: 20 }).map((_, i) => ({
   key: i.toString(),
   customername: `Edward ${i}`,
@@ -220,9 +220,10 @@ const Customer = () => {
             <Input
               placeholder="Search by name, email, phone, or address"
               value={searchText}
+              prefix={<SearchOutlined />}
               onChange={(e) => setSearchText(e.target.value)}
               allowClear
-              style={{ width: 200, height: 40 }}
+              className="h-9"
             />
             {selectedRowKeys.length >= 2 && (
               <Popconfirm
@@ -240,7 +241,7 @@ const Customer = () => {
                 <Button
                   icon={<RiDeleteBin6Line />}
                   style={{ marginLeft: 8 }}
-                  className="bg-prince/90 h-10 text-white hover:bg-prince border-none"
+                  className="bg-prince/90 h-9 text-white hover:bg-prince border-none"
                 >
                   {selectedRowKeys.length === data.length
                     ? "Delete All"
@@ -274,86 +275,3 @@ const Customer = () => {
 };
 
 export default Customer;
-
-// const originData = [
-//   {
-//     key: "1",
-//     customername: "Alice Johnson",
-//     email: "alice.johnson@example.com",
-//     phone: "9876543210",
-//     address: "123 Maple Street, NY",
-//     avatar: "https://i.pravatar.cc/50?img=1",
-//   },
-//   {
-//     key: "2",
-//     customername: "Bob Smith",
-//     email: "bobsmith22@gmail.com",
-//     phone: "5556677889",
-//     address: "456 Oak Avenue, CA",
-//     avatar: "https://i.pravatar.cc/50?img=2",
-//   },
-//   {
-//     key: "3",
-//     customername: "Charlie Brown",
-//     email: "charlie.b@example.org",
-//     phone: "1112233445",
-//     address: "789 Pine Road, TX",
-//     avatar: "https://i.pravatar.cc/50?img=3",
-//   },
-//   {
-//     key: "4",
-//     customername: "David Williams",
-//     email: "david_w@example.net",
-//     phone: "9998887776",
-//     address: "101 Cedar Blvd, FL",
-//     avatar: "https://i.pravatar.cc/50?img=4",
-//   },
-//   {
-//     key: "5",
-//     customername: "Emma Davis",
-//     email: "emma_d@example.com",
-//     phone: "6665554443",
-//     address: "202 Birch Lane, NV",
-//     avatar: "https://i.pravatar.cc/50?img=5",
-//   },
-//   {
-//     key: "6",
-//     customername: "Franklin Carter",
-//     email: "frank.carter@company.com",
-//     phone: "3332221110",
-//     address: "303 Redwood St, WA",
-//     avatar: "https://i.pravatar.cc/50?img=6",
-//   },
-//   {
-//     key: "7",
-//     customername: "Grace Miller",
-//     email: "grace_m@example.io",
-//     phone: "4447779998",
-//     address: "404 Walnut Dr, OR",
-//     avatar: "https://i.pravatar.cc/50?img=7",
-//   },
-//   {
-//     key: "8",
-//     customername: "Henry White",
-//     email: "henryw@example.com",
-//     phone: "2223334445",
-//     address: "505 Elm Circle, CO",
-//     avatar: "https://i.pravatar.cc/50?img=8",
-//   },
-//   {
-//     key: "9",
-//     customername: "Ivy Scott",
-//     email: "ivy.scott@example.org",
-//     phone: "7778889996",
-//     address: "606 Spruce Ct, GA",
-//     avatar: "https://i.pravatar.cc/50?img=9",
-//   },
-//   {
-//     key: "10",
-//     customername: "Jack Anderson",
-//     email: "jack_anderson@example.net",
-//     phone: "1234567890",
-//     address: "707 Cedar Rd, IL",
-//     avatar: "https://i.pravatar.cc/50?img=10",
-//   },
-// ];
