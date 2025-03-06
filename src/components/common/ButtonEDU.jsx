@@ -10,7 +10,9 @@ const ButtonEDU = ({ actionType, onClick }) => {
       case "save":
         return "bg-[#975cdb] text-white w-28 h-10 rounded-md border border-[#975cdb] transition-all duration-300 hover:bg-transparent hover:text-[#975cdb]";
       case "update":
-        return "bg-[#975cdb] text-white w-28 h-10 rounded-md border border-[#FFC301] transition-all duration-300 hover:bg-transparent hover:text-[#FFC301]";
+        return "bg-[#975cdb] text-white w-28 h-10 rounded-md border border-[#975cdb] transition-all duration-300 hover:bg-transparent hover:text-[#975cdb]";
+      case "add":
+        return "bg-[#975cdb] text-white w-28 h-10 rounded-md border border-[#975cdb] transition-all duration-300 hover:bg-transparent hover:text-[#975cdb]";
       default:
         return "bg-[975cdb] text-[#FFC301] w-28 h-10 rounded-md border border-[#FFC301] transition-all duration-300 hover:bg-[#FFC301] hover:text-white";
     }

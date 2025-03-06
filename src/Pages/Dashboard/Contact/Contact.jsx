@@ -12,38 +12,49 @@ const Contact = () => {
     email: "demo@gmail.com",
     location: "Jl. Merdeka Raya No.73B, Kuta, Badung, Bali",
   });
-
+  const [form] = Form.useForm();
   const [editedContact, setEditedContact] = useState({ ...contactInfo });
 
   const showModal = () => {
-    setEditedContact({ ...contactInfo }); // Reset edits to original contact info
+    // Reset edited contact to current contact info when opening modal
+    setEditedContact({ ...contactInfo });
+    form.setFieldsValue(contactInfo); // Set form values to current contact info
     setIsModalOpen(true);
   };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   const handleUpdate = () => {
-    // Trim everything after the domain part (e.g., ".com", ".org")
-    const trimmedEmail = editedContact.email.replace(
-      /(\.com|\.org|\.net|\.edu)(.*)$/,
-      "$1"
-    );
+    form
+      .validateFields()
+      .then((values) => {
+        // Trim everything after the domain part (e.g., ".com", ".org")
+        const trimmedEmail = values.email.replace(
+          /(\.com|\.org|\.net|\.edu)(.*)$/,
+          "$1"
+        );
 
-    // Update the contact info with the trimmed email
-    setContactInfo({ ...editedContact, email: trimmedEmail }); // Update the main contact info
+        // Update the contact info with the form values and trimmed email
+        const updatedContact = {
+          ...values,
+          email: trimmedEmail,
+        };
+
+        // Update the main contact info
+        setContactInfo(updatedContact);
+
+        // Close the modal
+        setIsModalOpen(false);
+      })
+      .catch((errorInfo) => {
+        console.log("Validation Failed:", errorInfo);
+      });
+  };
+
+  const handleCancel = () => {
+    // Reset form fields
+    form.resetFields();
+
+    // Close the modal without updating contact info
     setIsModalOpen(false);
-  };
-
-  const handleChange = (key, value) => {
-    setEditedContact((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const validateEmail = (email) => {
-    // Basic email validation regex
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return regex.test(email);
   };
 
   const contactFields = [
@@ -53,10 +64,10 @@ const Contact = () => {
   ];
 
   return (
-    <div className="px-10 py-5">
+    <div className="py-5">
       <h1 className="text-[20px] font-medium mb-5">Contact</h1>
       <Flex vertical justify="center" gap={30} className="w-full">
-        <div className="flex items-center justify-normal bg-white p-12 w-4/5 gap-4 rounded-xl ">
+        <div className="flex items-center justify-normal bg-white p-12 w-4/5 gap-4 rounded-xl border border-prince">
           {[
             {
               icon: <LiaPhoneVolumeSolid size={50} />,
@@ -81,7 +92,7 @@ const Contact = () => {
               align="center"
               className="flex-auto"
             >
-              <div className="bg-white rounded-xl shadow-[0px_0px_15px_4px_rgba(0,_0,_0,_0.1)] p-4 hover:bg-prince text-prince hover:text-white">
+              <div className="bg-white rounded-xl shadow-[0px_0px_15px_4px_rgba(0,_0,_0,_0.1)] p-4 hover:bg-prince text-prbg-prince hover:text-white">
                 {item.icon}
               </div>
               <div className="flex flex-col items-center">
@@ -93,7 +104,7 @@ const Contact = () => {
         </div>
         <button
           onClick={showModal}
-          className="w-4/5 h-12 bg-white rounded-lg border border-1 border-prince text-prince font-bold tracking-wider hover:bg-prince hover:text-white"
+          className="w-4/5 h-12 bg-white rounded-lg border border-prince text-prbg-prince font-bold tracking-wider hover:bg-prince hover:text-white hover:transition-all duration-500"
         >
           Edit Info
         </button>
@@ -108,11 +119,7 @@ const Contact = () => {
         centered
       >
         <div className="py-5">
-          <Form
-            layout="vertical"
-            onFinish={handleUpdate}
-            initialValues={editedContact}
-          >
+          <Form form={form} layout="vertical" initialValues={contactInfo}>
             {contactFields.map((field, i) => (
               <Form.Item
                 key={i}
@@ -134,15 +141,25 @@ const Contact = () => {
                   type={field.type}
                   placeholder={`Enter your ${field.label.toLowerCase()}`}
                   className="h-12 rounded-xl"
-                  value={editedContact[field.key]}
-                  onChange={(e) => handleChange(field.key, e.target.value)}
                 />
               </Form.Item>
             ))}
 
             <div className="flex justify-end gap-4">
-              <ButtonEDU actionType="cancel" onClick={handleCancel} />
-              <ButtonEDU actionType="update" htmlType="submit" />
+              <ButtonEDU
+                actionType="cancel"
+                onClick={handleCancel}
+                htmlType="button"
+              >
+                Cancel
+              </ButtonEDU>
+              <ButtonEDU
+                actionType="update"
+                onClick={handleUpdate}
+                htmlType="button"
+              >
+                Update
+              </ButtonEDU>
             </div>
           </Form>
         </div>

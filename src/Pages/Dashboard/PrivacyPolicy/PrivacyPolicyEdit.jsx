@@ -6,6 +6,7 @@ import {
   useUpdatePricyPolicyMutation,
 } from "../../../redux/apiSlices/privacyPolicySlice";
 import toast from "react-hot-toast";
+import ButtonEDU from "../../../components/common/ButtonEDU";
 
 const PrivacyPolicyEdit = () => {
   const editor = useRef(null);
@@ -48,7 +49,7 @@ const PrivacyPolicyEdit = () => {
           allowResizeY: false,
         }}
       />
-      <Button
+      {/* <Button
         onClick={aboutDataSave}
         block
         style={{
@@ -62,7 +63,8 @@ const PrivacyPolicyEdit = () => {
         className="absolute -bottom-60 left-0 text-base "
       >
         save
-      </Button>
+      </Button> */}
+      <ButtonEDU actionType={save}>Save</ButtonEDU>
     </div>
   );
 };

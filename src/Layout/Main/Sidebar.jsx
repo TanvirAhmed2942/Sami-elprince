@@ -14,6 +14,7 @@ import { FiLogOut, FiUsers } from "react-icons/fi";
 import { FaHandsHelping } from "react-icons/fa";
 import { FaDiagramProject } from "react-icons/fa6";
 import { CgTemplate } from "react-icons/cg";
+import { BiMessageSquare } from "react-icons/bi";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -33,57 +34,18 @@ const Sidebar = () => {
       icon: <RxDashboard size={24} />,
       label: <Link to="/">Overview</Link>,
     },
-    // {
-    //   key: "/contents",
-    //   icon: <PiCopyBold size={24} />,
-    //   label: <Link to="/contents">Contnets</Link>,
-    // },
     {
       key: "/serviceproviders",
       icon: <FaHandsHelping size={24} />,
       label: <Link to="/serviceproviders">Service Provider</Link>,
     },
-    // {
-    //   key: "/earnings",
-    //   icon: <TbDatabaseDollar size={24} />,
-    //   label: <Link to="/earnings">Earnings</Link>,
-    // },
-    // {
-    //   key: "/insight",
-    //   icon: <TbBulbFilled size={24} />,
-    //   label: <Link to="/insight">Insightful Tips</Link>,
-    // },
+
     {
       key: "/transaction",
       icon: <PiWallet size={25} />,
       label: <Link to="/transaction">Transaction</Link>,
     },
-    // {
-    //   key: "/blogs",
-    //   icon: <IoNewspaper size={24} />,
-    //   label: <Link to="/blogs">Blogs</Link>,
-    // },
-    // {
-    //   key: "/medicalhistory",
-    //   icon: <IoBriefcase size={24} />,
-    //   label: <Link to="/medicalhistory">Medical History</Link>,
-    // },
-    // {
-    //     key: "/artists",
-    //     icon: <HiUsers size={24} />,
-    //     label: <Link to="/artists">Artists</Link>
-    // },
-    // {
-    //     key: "/users",
-    //     icon: <HiUserGroup size={24} />,
-    //     label: <Link to="/users">User</Link>
-    // },
 
-    /* {
-            key: "/admin",
-            icon: <MdOutlineAdminPanelSettings size={24} />,
-            label: <Link to="/admin">Make Admin</Link>
-        }, */
     {
       key: "/customer",
       icon: <FiUsers size={23} />,
@@ -120,11 +82,7 @@ const Sidebar = () => {
         },
       ],
     },
-    // {
-    //     key: "/sub-category",
-    //     icon: <BiSolidCategory size={24} />,
-    //     label: <Link to="/sub-category" >Sub Category</Link>
-    // },
+
     {
       key: "/pushnotification",
       icon: <TbBellBolt size={24} />,
@@ -136,23 +94,6 @@ const Sidebar = () => {
       icon: <CgTemplate size={24} />,
       label: "Cms",
       children: [
-        // {
-        //   key: "/banner",
-        //   label: (
-        //     <Link to="/banner" className="text-white hover:text-white">
-        //       Banner
-        //     </Link>
-        //   ),
-        // },
-        // {
-        //   key: "/profile",
-        //   label: (
-        //     <Link to="/profile" className="text-white hover:text-white">
-        //       Personal Information
-        //     </Link>
-        //   ),
-        // },
-
         {
           key: "/privacy-policy",
           label: (
@@ -188,14 +129,6 @@ const Sidebar = () => {
             </Link>
           ),
         },
-        // {
-        //   key: "/change-password",
-        //   label: (
-        //     <Link to="/change-password" className="text-white hover:text-white">
-        //       Change Password
-        //     </Link>
-        //   ),
-        // },
       ],
     },
 
@@ -213,12 +146,6 @@ const Sidebar = () => {
         </p>
       ),
     },
-
-    // {
-    //   key: "/subscription",
-    //   icon: <HiTicket size={24} />,
-    //   label: <Link to="/subscription">Subscription</Link>,
-    // },
   ];
 
   useEffect(() => {

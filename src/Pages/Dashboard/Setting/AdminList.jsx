@@ -14,6 +14,8 @@ import {
 import { MoreOutlined, DeleteFilled, EditFilled } from "@ant-design/icons";
 
 import ButtonEDU from "../../../components/common/ButtonEDU";
+import { FiEdit2 } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const AdminList = () => {
   // Initial data
@@ -151,6 +153,13 @@ const AdminList = () => {
     message.success("Admin deleted successfully!");
   };
 
+  const handleMenuClick = (e) => {
+    const selected = items.find((item) => item.key === e.key);
+    if (selected) {
+      setSelectedRecipient(selected.label);
+    }
+  };
+
   return (
     <div className="w-[60%] bg-white rounded-lg shadow-lg p-5">
       <TableHead
@@ -178,6 +187,10 @@ const AdminList = () => {
               Form: {
                 labelFontSize: 16,
               },
+              Input: {
+                hoverBorderColor: "#00027d",
+                activeBorderColor: "#00027d",
+              },
             },
           }}
         >
@@ -187,7 +200,7 @@ const AdminList = () => {
               name="name"
               rules={[{ required: true, message: "Please enter Name" }]}
             >
-              <Input placeholder="Name" className="h-12" />
+              <Input placeholder="Name" className="h-10" />
             </Form.Item>
             <Form.Item
               label="Email"
@@ -214,22 +227,29 @@ const AdminList = () => {
                 },
               ]}
             >
-              <Input placeholder="Email" className="h-12" />
+              <Input placeholder="Email" className="h-10" />
             </Form.Item>
             <Form.Item
               label="Role"
               name="role"
-              rules={[{ required: true, message: "Please enter Role" }]}
+              value="Admin"
+              rules={[{ required: false, message: "Please enter Role" }]}
             >
-              <Input placeholder="Role" className="h-12" />
+              <Input placeholder="Role" className="h-10" disabled />
             </Form.Item>
-
+            <Form.Item label="Password" name="password">
+              <Input.Password placeholder="Set a Password" className="h-10" />
+            </Form.Item>
             <div className="flex justify-end gap-4 mt-4">
-              <ButtonEDU actionType="cancel" onClick={handleCancelAdd} />
+              <ButtonEDU actionType="cancel" onClick={handleCancelAdd}>
+                Cancel
+              </ButtonEDU>
               <ButtonEDU
                 actionType="save"
                 onClick={() => addFormRef.current?.submit()}
-              />
+              >
+                Save
+              </ButtonEDU>
             </div>
           </Form>
         </ConfigProvider>
@@ -249,6 +269,10 @@ const AdminList = () => {
               Form: {
                 labelFontSize: 16,
               },
+              Input: {
+                hoverBorderColor: "#00027d",
+                activeBorderColor: "#00027d",
+              },
             },
           }}
         >
@@ -258,7 +282,7 @@ const AdminList = () => {
               name="name"
               rules={[{ required: true, message: "Please enter Name" }]}
             >
-              <Input placeholder="Name" className="h-12" />
+              <Input placeholder="Name" className="h-10" />
             </Form.Item>
             <Form.Item
               label="Email"
@@ -285,22 +309,26 @@ const AdminList = () => {
                 },
               ]}
             >
-              <Input placeholder="Email" className="h-12" />
+              <Input placeholder="Email" className="h-10" />
             </Form.Item>
             <Form.Item
               label="Role"
               name="role"
               rules={[{ required: true, message: "Please enter Role" }]}
             >
-              <Input placeholder="Role" className="h-12" />
+              <Input placeholder="Role" className="h-10" />
             </Form.Item>
 
             <div className="flex justify-end gap-4 mt-4">
-              <ButtonEDU actionType="cancel" onClick={handleCancelEdit} />
+              <ButtonEDU actionType="cancel" onClick={handleCancelEdit}>
+                Cancel
+              </ButtonEDU>
               <ButtonEDU
                 actionType="save"
                 onClick={() => editFormRef.current?.submit()}
-              />
+              >
+                Save
+              </ButtonEDU>
             </div>
           </Form>
         </ConfigProvider>
@@ -327,14 +355,28 @@ const AdminList = () => {
 const TableHead = ({ searchText, handleSearch, onAdd }) => {
   return (
     <div className="flex justify-between items-center mb-4">
-      <Input
-        placeholder="Search admins..."
-        value={searchText}
-        onChange={handleSearch}
-        className="w-1/3"
-      />
-      <ButtonEDU actionType="save" icon={<FaPlus />} onClick={onAdd}>
-        Add Admin
+      <ConfigProvider
+        theme={{
+          components: {
+            Input: {
+              hoverBorderColor: "#00027d",
+              activeBorderColor: "#00027d",
+            },
+          },
+        }}
+      >
+        <Input
+          placeholder="Search admins..."
+          value={searchText}
+          onChange={handleSearch}
+          className="w-1/3 h-10"
+          allowClear
+        />
+      </ConfigProvider>
+      <ButtonEDU actionType="add" onClick={onAdd}>
+        <div className="flex items-center justify-center gap-2">
+          <FaPlus size={15} /> Add new
+        </div>
       </ButtonEDU>
     </div>
   );
@@ -361,8 +403,12 @@ const DeleteAdmin = ({ name, onConfirm, onCancel }) => (
       <span className="font-bold ml-1">{name}</span>?
     </Flex>
     <div className="flex items-center justify-center gap-4">
-      <ButtonEDU actionType="cancel" onClick={onCancel} />
-      <ButtonEDU actionType="delete" onClick={onConfirm} />
+      <ButtonEDU actionType="cancel" onClick={onCancel}>
+        Cancel{" "}
+      </ButtonEDU>
+      <ButtonEDU actionType="delete" onClick={onConfirm}>
+        Delete
+      </ButtonEDU>
     </div>
   </Flex>
 );
@@ -376,13 +422,19 @@ const columns = (onEdit, onDelete) => [
     render: (_, record) => (
       <Popover
         content={
-          <div className="flex gap-3">
-            <Button onClick={() => onEdit(record)}>
-              <EditFilled />
-            </Button>
-            <Button onClick={() => onDelete(record)} danger>
-              <DeleteFilled />
-            </Button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => onEdit(record)}
+              className="bg-sky-400/50 hover:bg-sky-400 p-2 rounded-lg"
+            >
+              <FiEdit2 size={15} />
+            </button>
+            <button
+              onClick={() => onDelete(record)}
+              className="bg-red-400/50 hover:bg-red-400 p-2 rounded-lg"
+            >
+              <RiDeleteBin6Line size={15} />
+            </button>
           </div>
         }
         trigger="hover"
@@ -393,7 +445,3 @@ const columns = (onEdit, onDelete) => [
   },
 ];
 export default AdminList;
-
-AdminList.js;
-
-AdminList.js;
